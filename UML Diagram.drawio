@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-22T12:36:40.600Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.454" etag="73d_zQyaxV4qpiotjTEP" version="14.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-12-22T13:32:30.817Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.459" etag="2gXaKOXlg9Ayre1IDHT3" version="14.1.1" type="github">
   <diagram id="ccfgcRXVULgk-GNFtkvl" name="Page-1">
-    <mxGraphModel dx="2800" dy="1136" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2208" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -128,13 +128,14 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="5tQaKlca7w6gPAvnw7rY-9" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="Ko4EwIO6dEaTH60689tN-2" target="t8-AK38QEtl_F5lhsWh6-2" edge="1">
+        <mxCell id="5tQaKlca7w6gPAvnw7rY-9" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="Ko4EwIO6dEaTH60689tN-2" target="t8-AK38QEtl_F5lhsWh6-1" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="800" y="430" as="sourcePoint" />
             <mxPoint x="640" y="430" as="targetPoint" />
             <Array as="points">
+              <mxPoint x="640" y="250" />
               <mxPoint x="600" y="250" />
-              <mxPoint x="600" y="508" />
+              <mxPoint x="600" y="513" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -428,7 +429,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="L8eHb1sv46eGWwmp7KBy-1" value="&lt;span style=&quot;font-size: 30px&quot;&gt;Бизнес-ядро&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="L8eHb1sv46eGWwmp7KBy-1" value="&lt;span style=&quot;font-size: 30px&quot;&gt;Бизнес-ядро&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="296" y="40" width="236" height="40" as="geometry" />
         </mxCell>
       </root>
