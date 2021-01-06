@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-01-06T14:25:00.869Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.459" etag="5cBkudo1d_cVCgPUwkzj" version="14.1.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-06T14:37:56.940Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.459" etag="yQobfcUh7io7_cyxGvgn" version="14.1.3" type="github">
   <diagram id="ccfgcRXVULgk-GNFtkvl" name="Page-1">
-    <mxGraphModel dx="2208" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2448" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -62,7 +62,7 @@
           <mxGeometry y="118" width="160" height="22" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-13" value="Client" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="1060" y="830" width="240" height="130" as="geometry" />
+          <mxGeometry x="1060" y="830" width="240" height="150" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-14" value="+ Cart : JSON&#xa;+ Orders: JSON" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-13" vertex="1">
           <mxGeometry y="26" width="240" height="44" as="geometry" />
@@ -70,8 +70,8 @@
         <mxCell id="Ko4EwIO6dEaTH60689tN-15" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-13" vertex="1">
           <mxGeometry y="70" width="240" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="Ko4EwIO6dEaTH60689tN-16" value="+ ConfirmeOrder()&#xa;+ CancelOrder(Order)&#xa;+ CancelOrder(int orderID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-13" vertex="1">
-          <mxGeometry y="78" width="240" height="52" as="geometry" />
+        <mxCell id="Ko4EwIO6dEaTH60689tN-16" value="+ ConfirmeOrder()&#xa;+ CancelOrder(Order)&#xa;+ CancelOrder(int orderID)&#xa;- OrdersToJSON" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-13" vertex="1">
+          <mxGeometry y="78" width="240" height="72" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-17" value="Admin" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="1349" y="830" width="160" height="110" as="geometry" />
@@ -458,6 +458,9 @@
               <mxPoint x="40" y="630" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="6Fdib0sNdk1cYpga5JIW-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Enum:DeliveryType&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Pickup&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="160" y="790" width="160" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
