@@ -18,6 +18,11 @@ namespace Core.Model.Ordering
             set { }
         }
         public int Count { get; set; }
+        public double Price 
+        {
+            get => Product.Price;
+            set;
+        }
 
     }
 }

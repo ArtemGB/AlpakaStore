@@ -8,5 +8,6 @@ namespace Core.Model.Ordering
 {
     enum DeliveryType
     {
+        Pickup
     }
 }

@@ -8,5 +8,9 @@ namespace Core.Model.Ordering
 {
     enum OrderStatus
     {
+        Confirmed,
+        Assembling,
+        Delivering,
+        Completed
     }
 }
