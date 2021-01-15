@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Core.Model.Ordering
 {
-    class Order
+    public class Order
     {
         public int Id { get; set; }
         public Client Client { get; set; }

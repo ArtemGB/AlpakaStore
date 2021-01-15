@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Model.Users
 {
-    class Cart
+    public class Cart
     {
     }
 }

@@ -1,11 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.IO;
+using Microsoft.Extensions.Configuration;
+using Core.Model.Ordering;
+using Core.Model.PriceCalculation;
+using Core.Model.Users;
 
 namespace Core.DbControl
 {
+    /// <summary>
+    /// Предоставляет доступ к базе данных.
+    /// </summary>
     public class StoreDbContext : DbContext
     {
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Price> Prices { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Filter> Filters { get; set; }
+
         public StoreDbContext()
         {
 
@@ -13,10 +28,10 @@ namespace Core.DbControl
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
-
+            optionBuilder.UseSqlServer(GetConnectionStringFromJson());
         }
 
-        private string GetConnectionStringFromJSON()
+        private string GetConnectionStringFromJson()
         {
             var builder = new ConfigurationBuilder();
             // установка пути к текущему каталогу
