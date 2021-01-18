@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlpakaStore", "AlpakaStore\AlpakaStore.csproj", "{E74A843A-2B46-4934-9627-BEF135201172}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlpakaStore", "AlpakaStore\AlpakaStore.csproj", "{E74A843A-2B46-4934-9627-BEF135201172}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{C33C7304-66BD-4FFD-84F8-7133AA09A037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{C33C7304-66BD-4FFD-84F8-7133AA09A037}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{8FE9646D-8075-4FA8-893A-6691244B7CED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C33C7304-66BD-4FFD-84F8-7133AA09A037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C33C7304-66BD-4FFD-84F8-7133AA09A037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C33C7304-66BD-4FFD-84F8-7133AA09A037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FE9646D-8075-4FA8-893A-6691244B7CED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FE9646D-8075-4FA8-893A-6691244B7CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FE9646D-8075-4FA8-893A-6691244B7CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FE9646D-8075-4FA8-893A-6691244B7CED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

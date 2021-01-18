@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DbControl;
+﻿using Core.DbControl;
 using Core.Model.Ordering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Model.Managing
 {
@@ -34,14 +33,33 @@ namespace Core.Model.Managing
             {
                 try
                 {
-                    dbContext.Orders.AddAsync(newOrder);
+                    dbContext.Orders.Add(newOrder);
                 }
                 catch (Exception e)
                 {
-                   OrderCreatingErrorHandler(newOrder, new EventArgs());
+                    OrderCreatingErrorHandler?.Invoke(newOrder, new EventArgs());
                 }
-                
+
             }
+        }
+
+        public async Task CreateOrderAsync(Order newOrder)
+        {
+            Task.Run(() =>
+            {
+                using (StoreDbContext dbContext = new StoreDbContext())
+                {
+                    try
+                    {
+                        dbContext.Orders.AddAsync(newOrder);
+                    }
+                    catch (Exception e)
+                    {
+                        OrderCreatingErrorHandler?.Invoke(newOrder, new EventArgs());
+                    }
+
+                }
+            });
         }
 
         //TODO
