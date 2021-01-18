@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Model.Ordering
 {
-    enum DeliveryType
+    public enum DeliveryType
     {
         Pickup
     }

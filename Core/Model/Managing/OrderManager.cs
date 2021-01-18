@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Model.Users;
+
 
 namespace Core.Model.Managing
 {
@@ -12,12 +14,7 @@ namespace Core.Model.Managing
     {
         private DbSet<Order> orders;
 
-        public List<Order> Orders
-        {
-            get => orders.ToList();
-        }
         public event EventHandler OrderCreatedHandler;
-        public event EventHandler OrderCreatingErrorHandler;
         public event EventHandler OrderStatusChangedHandler;
         public event EventHandler OrderCompletedHandler;
 
@@ -26,40 +23,28 @@ namespace Core.Model.Managing
             this.orders = orders;
         }
 
+        //public List<Order> ReadOrders
+
         //TODO
-        public void CreateOrder(Order newOrder)
+        /// <summary>
+        /// Создание заказа.
+        /// </summary>
+        /// <param name="newOrder"></param>
+        public void CreateOrder(Client client, List<Product> products, DeliveryType deliveryType)
         {
             using (StoreDbContext dbContext = new StoreDbContext())
             {
                 try
                 {
-                    dbContext.Orders.Add(newOrder);
+                    
+                    dbContext.Orders.AddAsync(newOrder);
+                    OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
                 }
                 catch (Exception e)
                 {
-                    OrderCreatingErrorHandler?.Invoke(newOrder, new EventArgs());
-                }
 
+                }
             }
-        }
-
-        public async Task CreateOrderAsync(Order newOrder)
-        {
-            Task.Run(() =>
-            {
-                using (StoreDbContext dbContext = new StoreDbContext())
-                {
-                    try
-                    {
-                        dbContext.Orders.AddAsync(newOrder);
-                    }
-                    catch (Exception e)
-                    {
-                        OrderCreatingErrorHandler?.Invoke(newOrder, new EventArgs());
-                    }
-
-                }
-            });
         }
 
         //TODO

@@ -9,8 +9,8 @@ namespace Core.Model.Ordering
 {
     class OrderLine
     {
-        public Order Order { get; set; }
         public int Id { get; set; }
+        public Order Order { get; set; }
         public Product Product { get; set; }
         public string ProductName 
         {
@@ -18,11 +18,9 @@ namespace Core.Model.Ordering
             set { }
         }
         public int Count { get; set; }
-        public double Price 
-        {
-            get => Product.Price;
-            set;
-        }
+
+        //Значение берётся из прайса.
+        public double Price { get; set; }
 
     }
 }

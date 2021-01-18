@@ -1,9 +1,11 @@
 ﻿using Core.Model.Users;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Model.Ordering
 {
+    [Table("Orders")]
     public class Order
     {
         public int Id { get; set; }

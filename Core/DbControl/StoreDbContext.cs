@@ -20,6 +20,7 @@ namespace Core.DbControl
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Filter> Filters { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         public StoreDbContext()
         {

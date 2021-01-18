@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Model.Users
 {
-    class Client : User
+    public class Client : User
     {
         public Cart Cart { get; set; }
         public List<Order> Orders { get; set; }
