@@ -1,6 +1,6 @@
 ﻿namespace Core.Model.Users
 {
-    enum UserStatus
+    public enum UserStatus
     {
     }
 }

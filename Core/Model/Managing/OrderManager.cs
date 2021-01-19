@@ -37,7 +37,7 @@ namespace Core.Model.Managing
                 try
                 {
                     
-                    dbContext.Orders.AddAsync(newOrder);
+                    dbContext.Orders.AddAsync(new Order{Client = client, Products = products});
                     OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
                 }
                 catch (Exception e)
