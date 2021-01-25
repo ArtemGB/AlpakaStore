@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-01-12T13:00:18.070Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.459" etag="rAjJOh_ayUf3kj1ivV1c" version="14.1.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-24T12:25:09.102Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.473" etag="D7a2DeCNZT_4qG1mBxwm" version="14.2.6" type="github">
   <diagram id="ccfgcRXVULgk-GNFtkvl" name="Page-1">
-    <mxGraphModel dx="2734" dy="935" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1488" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -38,16 +38,16 @@
           <mxGeometry y="108" width="380" height="42" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-1" value="StoreDbContext" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="640" y="182" width="160" height="174" as="geometry" />
+          <mxGeometry x="640" y="182" width="160" height="194" as="geometry" />
         </mxCell>
-        <mxCell id="Ko4EwIO6dEaTH60689tN-2" value="+ ProductContext&#xa;+ CategoryContext&#xa;+ OrderContext&#xa;+ PriceContext&#xa;+ PromotionContext&#xa;+ CartContext&#xa;+ FilterContext" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-1" vertex="1">
-          <mxGeometry y="26" width="160" height="114" as="geometry" />
+        <mxCell id="Ko4EwIO6dEaTH60689tN-2" value="+ ProductContext&#xa;+ CategoryContext&#xa;+ OrderContext&#xa;+ OrderLinesContext&#xa;+ PriceContext&#xa;+ PromotionContext&#xa;+ CartContext&#xa;+ FilterContext" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-1" vertex="1">
+          <mxGeometry y="26" width="160" height="134" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-1" vertex="1">
-          <mxGeometry y="140" width="160" height="8" as="geometry" />
+          <mxGeometry y="160" width="160" height="8" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-4" value="+ StoreDbContext" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-1" vertex="1">
-          <mxGeometry y="148" width="160" height="26" as="geometry" />
+          <mxGeometry y="168" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="Ko4EwIO6dEaTH60689tN-9" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="1219" y="504" width="160" height="140" as="geometry" />
@@ -133,8 +133,7 @@
             <mxPoint x="800" y="430" as="sourcePoint" />
             <mxPoint x="640" y="430" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="640" y="250" />
-              <mxPoint x="600" y="250" />
+              <mxPoint x="600" y="275" />
               <mxPoint x="600" y="513" />
             </Array>
             <mxPoint as="offset" />
@@ -313,8 +312,8 @@
             <mxPoint x="-170" y="520" as="sourcePoint" />
             <mxPoint x="-10" y="520" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="-120" y="390" />
-              <mxPoint x="720" y="390" />
+              <mxPoint x="-120" y="420" />
+              <mxPoint x="670" y="420" />
             </Array>
           </mxGeometry>
         </mxCell>
