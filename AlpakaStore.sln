@@ -4,10 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlpakaStore", "AlpakaStore\AlpakaStore.csproj", "{E74A843A-2B46-4934-9627-BEF135201172}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C33C7304-66BD-4FFD-84F8-7133AA09A037} = {C33C7304-66BD-4FFD-84F8-7133AA09A037}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{C33C7304-66BD-4FFD-84F8-7133AA09A037}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{8FE9646D-8075-4FA8-893A-6691244B7CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{8FE9646D-8075-4FA8-893A-6691244B7CED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

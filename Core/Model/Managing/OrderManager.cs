@@ -30,14 +30,18 @@ namespace Core.Model.Managing
         /// Создание заказа.
         /// </summary>
         /// <param name="newOrder"></param>
-        public void CreateOrder(Client client, List<Product> products, DeliveryType deliveryType)
+        public void CreateOrder(Client client, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
             using (StoreDbContext dbContext = new StoreDbContext())
             {
                 try
                 {
-                    
-                    dbContext.Orders.AddAsync(new Order{Client = client, Products = products});
+                    Order newOrder = new Order {Client = client, OrderLines = orderLines, CreateDate = DateTime.Now};
+                    dbContext.Orders.Add(newOrder);
+                    dbContext.SaveChanges();
+                    foreach (var ordLine in orderLines)
+                        ordLine.Order = newOrder;
+                    dbContext.OrderLines.AddRangeAsync(orderLines);
                     OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
                 }
                 catch (Exception e)

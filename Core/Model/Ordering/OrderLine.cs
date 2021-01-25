@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Model.Ordering
 {
-    class OrderLine
+    public class OrderLine
     {
         public int Id { get; set; }
         public Order Order { get; set; }

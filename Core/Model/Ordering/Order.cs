@@ -10,10 +10,10 @@ namespace Core.Model.Ordering
     {
         public int Id { get; set; }
         public Client Client { get; set; }
-        public List<Product> Products { get; set; }
+        public List<OrderLine> OrderLines { get; set; }
 
         //TODO в метод гет парсинг продуктов в JSON
-        public string ProductsJSON { get; set; }
+        public string OrderLinesJSON { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public string OrderStatusName 
         { 
