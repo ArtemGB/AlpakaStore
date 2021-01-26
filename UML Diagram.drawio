@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-01-24T12:25:09.102Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.473" etag="D7a2DeCNZT_4qG1mBxwm" version="14.2.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-26T13:29:36.339Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.473" etag="ICwpyXB3296vvfxjV-he" version="14.2.7" type="github">
   <diagram id="ccfgcRXVULgk-GNFtkvl" name="Page-1">
-    <mxGraphModel dx="1488" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2448" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -103,8 +103,8 @@
         <mxCell id="Ko4EwIO6dEaTH60689tN-32" value="+ ID&#xa;+ Client&#xa;+ Products&#xa;+ Status: OrderStatus&#xa;+ DeliveryType&#xa;+ CreateData&#xa;+ CompleteData&#xa;+ TotalPrice" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Ko4EwIO6dEaTH60689tN-31" vertex="1">
           <mxGeometry y="26" width="160" height="134" as="geometry" />
         </mxCell>
-        <mxCell id="5tQaKlca7w6gPAvnw7rY-1" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Enum:OrderStatus&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Confirmed&lt;br&gt;Assembling&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Delivering&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Completed&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="160" y="680" width="160" height="90" as="geometry" />
+        <mxCell id="5tQaKlca7w6gPAvnw7rY-1" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Enum:OrderStatus&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Confirmed&lt;br&gt;Assembling&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Delivering&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Completed&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Canceled&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="680" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="5tQaKlca7w6gPAvnw7rY-4" value="OrderManager(Singleton)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="640" y="606" width="280" height="220" as="geometry" />
@@ -170,7 +170,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="5tQaKlca7w6gPAvnw7rY-19" value="CategoryManager(Singleton)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+        <mxCell id="5tQaKlca7w6gPAvnw7rY-19" value="CategoryManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="-413" y="182" width="380" height="190" as="geometry" />
         </mxCell>
         <mxCell id="5tQaKlca7w6gPAvnw7rY-20" value="- CategoryDbContext: DbSet&lt;Categoryr&gt;&#xa;+ readonly Categories: List&lt;Categoryr&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="5tQaKlca7w6gPAvnw7rY-19" vertex="1">
@@ -340,7 +340,7 @@
         <mxCell id="pEVaxvZ-yXMbJUOCeP8V-4" value="+ AddProduct(Product)&#xa;+ AddProduct(ID)&#xa;+ RemoveProduct(Product)&#xa;+ RemoveProduct(ID)&#xa;+ EditProduct (Product)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="pEVaxvZ-yXMbJUOCeP8V-1" vertex="1">
           <mxGeometry y="78" width="220" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="kHuiuL-wWrQqQt3O9cBC-1" value="UserManager(Singletone)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+        <mxCell id="kHuiuL-wWrQqQt3O9cBC-1" value="UserManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="1219" y="130" width="241" height="160" as="geometry" />
         </mxCell>
         <mxCell id="kHuiuL-wWrQqQt3O9cBC-2" value="- UserDbContext: DbSet&lt;User&gt;&#xa;+ readonly Users: List&lt;User&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="kHuiuL-wWrQqQt3O9cBC-1" vertex="1">
@@ -459,7 +459,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="6Fdib0sNdk1cYpga5JIW-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Enum:DeliveryType&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Pickup&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="160" y="790" width="160" height="90" as="geometry" />
+          <mxGeometry x="160" y="817" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="ust7bYhtiC9TZb6qNTf8-1" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;" parent="1" source="Ko4EwIO6dEaTH60689tN-31" target="6Fdib0sNdk1cYpga5JIW-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
