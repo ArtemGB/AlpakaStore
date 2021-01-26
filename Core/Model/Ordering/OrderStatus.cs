@@ -11,6 +11,7 @@ namespace Core.Model.Ordering
         Confirmed,
         Assembling,
         Delivering,
-        Completed
+        Completed,
+        Canceled
     }
 }

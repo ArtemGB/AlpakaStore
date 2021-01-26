@@ -15,21 +15,6 @@ namespace Core.Model.Ordering
         //TODO в метод гет парсинг продуктов в JSON
         public string OrderLinesJSON { get; set; }
         public OrderStatus OrderStatus { get; set; }
-        public string OrderStatusName 
-        { 
-            get
-            {
-                switch (OrderStatus)
-                {
-                    case OrderStatus.Confirmed: return "Подтверждён";
-                    case OrderStatus.Assembling: return "Сборка";
-                    case OrderStatus.Delivering: return "Доставка";
-                    case OrderStatus.Completed: return "Завершён";
-                    default: return "";
-                }
-            }
-            set { }
-        }
         public DeliveryType DeliveryType { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime CompleteDate { get; set; }
