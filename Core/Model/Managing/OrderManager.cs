@@ -25,11 +25,10 @@ namespace Core.Model.Managing
 
         //public List<Order> ReadOrders
 
-        //TODO
+        //TODO блок catch
         /// <summary>
         /// Создание заказа.
         /// </summary>
-        /// <param name="newOrder"></param>
         public void CreateOrder(Client client, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
             using (StoreDbContext dbContext = new StoreDbContext())
@@ -41,7 +40,8 @@ namespace Core.Model.Managing
                     dbContext.SaveChanges();
                     foreach (var ordLine in orderLines)
                         ordLine.Order = newOrder;
-                    dbContext.OrderLines.AddRangeAsync(orderLines);
+                    dbContext.OrderLines.AddRange(orderLines);
+                    dbContext.SaveChanges();
                     OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
                 }
                 catch (Exception e)
@@ -52,9 +52,27 @@ namespace Core.Model.Managing
         }
 
         //TODO
+        /// <summary>
+        /// Меняет статус заказа.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="newStatus"></param>
         public void ChangeOrderStatus(Order order, OrderStatus newStatus)
         {
+            if (order != null)
+            {
+                using (StoreDbContext dbContext = new StoreDbContext())
+                {
+                    var Orders = dbContext.Orders.ToList();
+                    var ji = Orders.Where(ord => ord.Id == order.Id);
+                    if (Orders.Any(ord => ord.Id == order.Id))
+                    {
 
+                    }
+                    else throw new ArgumentException($"No order with Id = {order.Id}");
+                }
+            }
+            else throw new ArgumentNullException(nameof(order),"Parameter order is null.");
         }
     }
 }
