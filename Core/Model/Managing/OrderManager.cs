@@ -40,6 +40,7 @@ namespace Core.Model.Managing
                     dbContext.SaveChanges();
                     foreach (var ordLine in orderLines)
                         ordLine.Order = newOrder;
+                    // Добавление строк заказов.
                     dbContext.OrderLines.AddRange(orderLines);
                     dbContext.SaveChanges();
                     OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
