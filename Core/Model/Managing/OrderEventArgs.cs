@@ -16,4 +16,14 @@ namespace Core.Model.Managing
             Order = order;
         }
     }
+
+    public class CompletedOrderEventArgs : EventArgs
+    {
+        public readonly CompletedOrder Order;
+
+        public CompletedOrderEventArgs(CompletedOrder completedOrder)
+        {
+            Order = completedOrder;
+        }
+    }
 }

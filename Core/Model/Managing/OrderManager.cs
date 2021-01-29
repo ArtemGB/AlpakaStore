@@ -12,7 +12,6 @@ namespace Core.Model.Managing
 {
     public class OrderManager
     {
-        private DbSet<Order> orders;
 
         public event EventHandler OrderCreatedHandler;
         public event EventHandler OrderStatusChangedHandler;
@@ -20,7 +19,6 @@ namespace Core.Model.Managing
 
         public OrderManager(DbSet<Order> orders)
         {
-            this.orders = orders;
         }
 
         //public List<Order> ReadOrders
@@ -29,6 +27,9 @@ namespace Core.Model.Managing
         /// <summary>
         /// Создание заказа.
         /// </summary>
+        /// <param name="client">Клиент для которого создаётся заказ</param>
+        /// <param name="orderLines">Список товаров в заказе</param>
+        /// <param name="deliveryType">Способ доставки.</param>
         public void CreateOrder(Client client, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
             using StoreDbContext dbContext = new StoreDbContext();
@@ -102,19 +103,53 @@ namespace Core.Model.Managing
                 ChangeOrderStatus(order, OrderStatus.Completed);
 
                 // Перенос заказа в таблицу завершённых заказов.
-                dbContext.CompletedOrders.Add(new CompletedOrder()
+                CompletedOrder completedOrder = new CompletedOrder()
                 {
                     Client = ordToComplete.Client,
                     CreateDate = ordToComplete.CreateDate,
                     CompleteDate = DateTime.Now
-                });
+                };
+                dbContext.CompletedOrders.Add(completedOrder);
                 dbContext.Orders.Remove(ordToComplete);
 
                 dbContext.SaveChanges();
+                OrderCompletedHandler.Invoke(this,new CompletedOrderEventArgs(completedOrder));
             }
             else
             {
                 throw new ArgumentNullException(nameof(order), $"There is no order with id = {order.Id}");
+            }
+        }
+
+
+        /// <summary>
+        /// Завершение заказа.
+        /// </summary>
+        /// <param name="orderId">Id заказа для завершения.</param>
+        public void CompleteOrder(int orderId)
+        {
+            using StoreDbContext dbContext = new StoreDbContext();
+            var ordToComplete = dbContext.Orders.Find(orderId);
+            if (ordToComplete != null)
+            {
+                ChangeOrderStatus(orderId, OrderStatus.Completed);
+
+                // Перенос заказа в таблицу завершённых заказов.
+                CompletedOrder completedOrder = new CompletedOrder()
+                {
+                    Client = ordToComplete.Client,
+                    CreateDate = ordToComplete.CreateDate,
+                    CompleteDate = DateTime.Now
+                };
+                dbContext.CompletedOrders.Add(completedOrder);
+                dbContext.Orders.Remove(ordToComplete);
+
+                dbContext.SaveChanges();
+                OrderCompletedHandler.Invoke(this, new CompletedOrderEventArgs(completedOrder));
+            }
+            else
+            {
+                throw new ArgumentNullException($"There is no order with id = {orderId}");
             }
         }
     }

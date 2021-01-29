@@ -11,31 +11,27 @@ namespace Core.Model.Managing
 {
     public class UserManager
     {
-        private DbSet<Client> clients;
 
         public event EventHandler UserCreated;
         public event EventHandler UserStatusChanged;
 
         public UserManager(DbSet<Client> clients)
         {
-            this.clients = clients;
         }
 
         public void AddUser(string name, string secondName)
         {
-            using (UserDbContext dbContext = new UserDbContext())
+            using UserDbContext dbContext = new UserDbContext();
+            try
             {
-                try
-                {
-                    Client newClient = new Client() {Name = name, SecondName = secondName};
-                    dbContext.Clients.Add(newClient);
-                    dbContext.SaveChanges();
-                    UserCreated?.Invoke(this, new UserEventArgs(newClient));
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Client adding failed", e);
-                }
+                Client newClient = new Client() {Name = name, SecondName = secondName};
+                dbContext.Clients.Add(newClient);
+                dbContext.SaveChanges();
+                UserCreated?.Invoke(this, new UserEventArgs(newClient));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Client adding failed", e);
             }
         }
 
