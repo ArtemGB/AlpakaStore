@@ -1,23 +1,20 @@
-﻿using Core.Model.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Core.Model.Users;
 
 namespace Core.Model.Ordering
 {
-    [Table("Orders")]
-    public class Order
+    [Table("Completed Orders")]
+    public class CompletedOrder
     {
         public int Id { get; set; }
         public Client Client { get; set; }
-        public List<OrderLine> OrderLines { get; set; }
-
-        //TODO в метод гет парсинг продуктов в JSON
-        public OrderStatus OrderStatus { get; set; }
-        public DeliveryType DeliveryType { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime CompleteDate { get; set; }
         public double TotalPrice { get; set; }
-
     }
 }
