@@ -5,7 +5,7 @@ namespace Core.Model.Users
 {
     public class Client : User
     {
-        public Cart Cart { get; set; }
+        //public Cart Cart { get; set; }
 
         public bool ConfirmeOrder()
         {

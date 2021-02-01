@@ -19,8 +19,8 @@ namespace Core.DbControl
         public DbSet<CompletedOrder> CompletedOrders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<Price> Prices { get; set; }
-        public DbSet<Promotion> Promotions { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+        //public DbSet<Promotion> Promotions { get; set; }
+        //public DbSet<Cart> Carts { get; set; }
         public DbSet<Filter> Filters { get; set; }
         public DbSet<Client> Clients { get; set; }
 
@@ -38,7 +38,7 @@ namespace Core.DbControl
         {
             var builder = new ConfigurationBuilder();
             // установка пути к текущему каталогу
-            builder.SetBasePath($"../{Directory.GetCurrentDirectory()}");
+            builder.SetBasePath($"{Directory.GetCurrentDirectory()}");
             // получаем конфигурацию из файла appsettings.json
             builder.AddJsonFile("appsettings.json");
             // создаем конфигурацию

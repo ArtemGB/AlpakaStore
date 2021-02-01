@@ -9,6 +9,6 @@ namespace Core.Model.Ordering
         public string Description { get; set; }
         public Filter Filter { get; set; }
         public Category Category { get; set; }
-        public Price Price { get; set; }
+       // public Price Price { get; set; }
     }
 }
