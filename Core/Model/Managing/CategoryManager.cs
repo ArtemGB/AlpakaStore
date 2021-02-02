@@ -25,13 +25,19 @@ namespace Core.Model.Managing
             set => Categories = value;
         }
 
+        /// <summary>
+        /// Добавляет новую категорию.
+        /// </summary>
+        /// <param name="name">Имя категории</param>
+        /// <param name="parrentCategory">Родительская категория</param>
         public void AddCategory(string name, Category parrentCategory = null)
         {
             using (StoreDbContext dbContext = new StoreDbContext())
             {
-                dbContext.Categories.Add(new Category() {Name = name});
+                dbContext.Categories.Add(new Category() {Name = name, ParrentCategory = parrentCategory});
                 dbContext.SaveChanges();
             }
         }
+
     }
 }
