@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-02T13:48:24.388Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.487" etag="stTHyUwMEp2qNqav-RmN" version="14.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-02T14:22:41.280Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36 OPR/72.0.3815.487" etag="UB6U7I8blqLr2erKgM8r" version="14.2.7" type="github">
   <diagram id="ccfgcRXVULgk-GNFtkvl" name="Page-1">
     <mxGraphModel dx="2208" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -173,13 +173,13 @@
         <mxCell id="5tQaKlca7w6gPAvnw7rY-19" value="CategoryManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="-413" y="182" width="380" height="190" as="geometry" />
         </mxCell>
-        <mxCell id="5tQaKlca7w6gPAvnw7rY-20" value="- CategoryDbContext: DbSet&lt;Categoryr&gt;&#xa;+ readonly Categories: List&lt;Categoryr&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="5tQaKlca7w6gPAvnw7rY-19" vertex="1">
+        <mxCell id="5tQaKlca7w6gPAvnw7rY-20" value="+ readonly Categories: List&lt;Categoryr&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="5tQaKlca7w6gPAvnw7rY-19" vertex="1">
           <mxGeometry y="26" width="380" height="44" as="geometry" />
         </mxCell>
         <mxCell id="5tQaKlca7w6gPAvnw7rY-21" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="5tQaKlca7w6gPAvnw7rY-19" vertex="1">
           <mxGeometry y="70" width="380" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="5tQaKlca7w6gPAvnw7rY-22" value="+ CategoryManager(CategoryDbContext: DbSet&lt;Category&gt;)&#xa;+ AddCategory(Category)&#xa;+ AddSubCategory(Category mainCategory, Category SubCategory)&#xa;+ AddSubCategory(Category mainCategory, int SubCategoryID)&#xa;+ RemoveCategory(Category)&#xa;+ RemoveCategory(ID)&#xa;+ EditCategory(Category)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="5tQaKlca7w6gPAvnw7rY-19" vertex="1">
+        <mxCell id="5tQaKlca7w6gPAvnw7rY-22" value="+ AddCategory(Category)&#xa;+ AddSubCategory(Category mainCategory, Category SubCategory)&#xa;+ AddSubCategory(Category mainCategory, int SubCategoryID)&#xa;+ RemoveCategory(Category)&#xa;+ RemoveCategory(ID)&#xa;+ EditCategory(Category)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="5tQaKlca7w6gPAvnw7rY-19" vertex="1">
           <mxGeometry y="78" width="380" height="112" as="geometry" />
         </mxCell>
         <mxCell id="5tQaKlca7w6gPAvnw7rY-23" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;dashPattern=1 2;" parent="1" source="5tQaKlca7w6gPAvnw7rY-19" target="xCEp696OU6FZXGWBjgtu-13" edge="1">
