@@ -17,11 +17,11 @@ namespace Core.Model.Managing
         public event EventHandler UserCreated;
         public event EventHandler UserStatusChanged;
 
-        public UserManager(DbSet<Client> clients)
+        public UserManager()
         {
         }
 
-        public void AddUser(string name, string secondName)
+        public void AddClient(string name, string secondName)
         {
             using StoreDbContext dbContext = new StoreDbContext();
             Client newClient = new Client() { Name = name, SecondName = secondName };

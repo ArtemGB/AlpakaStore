@@ -13,8 +13,13 @@ namespace Core.Model.Ordering
         public Category ParrentCategory { get; set; }
         public List<Category> SubCategories { get; set; }
         
-        //TODO в метод гет поместить сериализацию Подкатегорий в JSON.
-        public string SubCategoriesJSON { get; set; }
+        //TODO в метод гет поместить сериализацию подкатегорий в JSON.
+        public string SubCategoriesJson { get; set; }
+
+        public Category()
+        {
+            SubCategories = new List<Category>();
+        }
 
     }
 }

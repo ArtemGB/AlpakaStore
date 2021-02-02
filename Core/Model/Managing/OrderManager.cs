@@ -17,7 +17,7 @@ namespace Core.Model.Managing
         public event EventHandler OrderStatusChangedHandler;
         public event EventHandler OrderCompletedHandler;
 
-        public OrderManager(DbSet<Order> orders)
+        public OrderManager()
         {
         }
 
@@ -30,12 +30,15 @@ namespace Core.Model.Managing
         /// <param name="client">Клиент для которого создаётся заказ</param>
         /// <param name="orderLines">Список товаров в заказе</param>
         /// <param name="deliveryType">Способ доставки.</param>
-        public void CreateOrder(Client client, List<OrderLine> orderLines, DeliveryType deliveryType)
+        public void CreateOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
             using StoreDbContext dbContext = new StoreDbContext();
             try
             {
-                Order newOrder = new Order { Client = client, OrderLines = orderLines, CreateDate = DateTime.Now };
+                //Проверка, что существует клиент с таким Id.
+                if (!dbContext.Clients.Any(c => c.Id == clientId))
+                    throw new ArgumentException($"There is no client with id = {clientId}.", nameof(clientId));
+                Order newOrder = new Order { Client = dbContext.Clients.Find(clientId), OrderLines = orderLines, CreateDate = DateTime.Now };
                 dbContext.Orders.Add(newOrder);
                 dbContext.SaveChanges();
                 foreach (var ordLine in orderLines)
