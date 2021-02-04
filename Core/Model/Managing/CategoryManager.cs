@@ -25,19 +25,67 @@ namespace Core.Model.Managing
             set => Categories = value;
         }
 
+        public void AddCategory(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Parameter name is null or white space.");
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                dbContext.Categories.Add(new Category() { Name = name, ParrentCategory = null });
+                dbContext.SaveChanges();
+            }
+        }
+
         /// <summary>
-        /// Добавляет новую категорию.
+        /// Добавляет подкатегорию категории.
         /// </summary>
         /// <param name="name">Имя категории</param>
         /// <param name="parrentCategory">Родительская категория</param>
-        public void AddCategory(string name, Category parrentCategory = null)
+        public void AddSubCategory(string name, Category parrentCategory)
         {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Parameter name is null or white space.");
+            if (parrentCategory == null)
+                throw new ArgumentNullException("parrentCategory");
             using (StoreDbContext dbContext = new StoreDbContext())
             {
                 dbContext.Categories.Add(new Category() {Name = name, ParrentCategory = parrentCategory});
                 dbContext.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// Добавляет подкатегорию категории.
+        /// </summary>
+        /// <param name="name">Имя категории</param>
+        /// <param name="parrentCategoryId">Id родительской категории</param>
+        public void AddSubCategory(string name, int parrentCategoryId)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Parameter name is null or white space.");
+           
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                var parrentCategory = dbContext.Categories.Find(parrentCategoryId);
+                if (parrentCategory == null)
+                    throw new ArgumentException($"There is no category with id = {parrentCategoryId}");
+                dbContext.Categories.Add(new Category() { Name = name, ParrentCategory = parrentCategory });
+                dbContext.SaveChanges();
+            }
+        }
+
+        public void RemoveCategory(int categoryId)
+        {
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                var category = dbContext.Categories.Find(categoryId);
+                if (category != null)
+                    dbContext.Categories.Remove(category);
+                else
+                    throw new ArgumentException($"There is no category with Id ={categoryId}");
+            }
+        }
+
 
     }
 }

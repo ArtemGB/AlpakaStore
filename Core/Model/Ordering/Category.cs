@@ -25,19 +25,5 @@ namespace Core.Model.Ordering
             SubCategories = new List<Category>();
         }
 
-        /// <summary>
-        /// Добавление подкатегории.
-        /// </summary>
-        /// <param name="name">Имя подкатегории.</param>
-        public void AddSubCategory(Category subCategory)
-        {
-            using (StoreDbContext dbContext = new StoreDbContext())
-            {
-                dbContext.Attach(this);
-                SubCategories.Add(subCategory);
-                dbContext.SaveChanges();
-            }
-        }
-
     }
 }
