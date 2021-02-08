@@ -22,7 +22,6 @@ namespace Core.Model.Managing
                     return dbContext.Categories.ToList();
                 }
             }
-            set => Categories = value;
         }
 
         public void AddCategory(string name)
@@ -31,7 +30,7 @@ namespace Core.Model.Managing
                 throw new ArgumentException("Parameter name is null or white space.");
             using (StoreDbContext dbContext = new StoreDbContext())
             {
-                dbContext.Categories.Add(new Category() { Name = name, ParrentCategory = null });
+                dbContext.Categories.Add(new Category() { Name = name, ParentCategory = null });
                 dbContext.SaveChanges();
             }
         }
@@ -40,16 +39,16 @@ namespace Core.Model.Managing
         /// Добавляет подкатегорию категории.
         /// </summary>
         /// <param name="name">Имя категории</param>
-        /// <param name="parrentCategory">Родительская категория</param>
-        public void AddSubCategory(string name, Category parrentCategory)
+        /// <param name="parentCategory">Родительская категория</param>
+        public void AddSubCategory(string name, Category parentCategory)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Parameter name is null or white space.");
-            if (parrentCategory == null)
-                throw new ArgumentNullException("parrentCategory");
+            if (parentCategory == null)
+                throw new ArgumentNullException(nameof(parentCategory));
             using (StoreDbContext dbContext = new StoreDbContext())
             {
-                dbContext.Categories.Add(new Category() { Name = name, ParrentCategory = parrentCategory });
+                dbContext.Categories.Add(new Category() { Name = name, ParentCategory = parentCategory });
                 dbContext.SaveChanges();
             }
         }
@@ -58,18 +57,18 @@ namespace Core.Model.Managing
         /// Добавляет подкатегорию категории.
         /// </summary>
         /// <param name="name">Имя категории</param>
-        /// <param name="parrentCategoryId">Id родительской категории</param>
-        public void AddSubCategory(string name, int parrentCategoryId)
+        /// <param name="parentCategoryId">Id родительской категории</param>
+        public void AddSubCategory(string name, int parentCategoryId)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Parameter name is null or white space.");
 
             using (StoreDbContext dbContext = new StoreDbContext())
             {
-                var parrentCategory = dbContext.Categories.Find(parrentCategoryId);
-                if (parrentCategory == null)
-                    throw new ArgumentException($"There is no category with id = {parrentCategoryId}");
-                dbContext.Categories.Add(new Category() { Name = name, ParrentCategory = parrentCategory });
+                var parentCategory = dbContext.Categories.Find(parentCategoryId);
+                if (parentCategory == null)
+                    throw new ArgumentException($"There is no category with id = {parentCategoryId}");
+                dbContext.Categories.Add(new Category() { Name = name, ParentCategory = parentCategory });
                 dbContext.SaveChanges();
             }
         }
@@ -90,8 +89,13 @@ namespace Core.Model.Managing
             }
         }
 
-        //TODO
-        public void EditCategory(int categoryId, string name = null, Category parrentCategory = null, bool resetParrentCategory = false)
+        /// <summary>
+        /// Редактирование категории
+        /// </summary>
+        /// <param name="categoryId">Id категории для редактирования</param>
+        /// <param name="name">Новое имя</param>
+        /// <param name="parentCategory">Новая родительская категория. default = null</param>
+        public void EditCategory(int categoryId, string name = null, Category parentCategory = null)
         {
             using (StoreDbContext dbContext = new StoreDbContext())
             {
@@ -102,15 +106,19 @@ namespace Core.Model.Managing
                         if (category.Name != name)
                             category.Name = name;
 
-                    if (parrentCategory != null && resetParrentCategory)
-                        category.ParrentCategory = parrentCategory;
-
-                    //Проверка наличия родительской категории.
-
+                    if (parentCategory != null)
+                    {
+                        var parCategory = dbContext.Categories.Find(parentCategory.Id);
+                        if (parCategory != null)
+                            category.ParentCategory = parCategory;
+                        else
+                            throw new ArgumentException("Не существует такой родительской категории.",
+                                nameof(parentCategory));
+                    }
                     dbContext.SaveChanges();
                 }
                 else
-                    throw new ArgumentException($"There is no category with Id ={categoryId}");
+                    throw new ArgumentException($"There is no category with Id = {categoryId}");
             }
         }
 

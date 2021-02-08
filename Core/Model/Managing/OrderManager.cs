@@ -27,7 +27,7 @@ namespace Core.Model.Managing
         /// <summary>
         /// Создание заказа.
         /// </summary>
-        /// <param name="client">Клиент для которого создаётся заказ</param>
+        /// <param name="clientId">Клиент для которого создаётся заказ</param>
         /// <param name="orderLines">Список товаров в заказе</param>
         /// <param name="deliveryType">Способ доставки.</param>
         public void CreateOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)

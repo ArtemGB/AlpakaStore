@@ -13,7 +13,7 @@ namespace Core.Model.Ordering
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Category ParrentCategory { get; set; }
+        public Category ParentCategory { get; set; }
 
         public List<Category> SubCategories { get;}
         
