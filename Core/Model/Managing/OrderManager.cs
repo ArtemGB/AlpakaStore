@@ -10,6 +10,7 @@ using Core.Model.Users;
 
 namespace Core.Model.Managing
 {
+    //TODO расчёт цен и запись цены в заказ
     public class OrderManager
     {
 
@@ -21,9 +22,17 @@ namespace Core.Model.Managing
         {
         }
 
-        //public List<Order> ReadOrders
+        public List<Order> Orders
+        {
+            get
+            {
+                using (StoreDbContext dbContext = new StoreDbContext())
+                {
+                    return dbContext.Orders.ToList();
+                }
+            }
+        }
 
-        //TODO блок catch
         /// <summary>
         /// Создание заказа.
         /// </summary>
@@ -54,7 +63,6 @@ namespace Core.Model.Managing
             }
         }
 
-        //TODO
         /// <summary>
         /// Меняет статус заказа.
         /// </summary>

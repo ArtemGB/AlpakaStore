@@ -8,5 +8,6 @@ namespace Core.Model.PriceCalculation
 {
     public class Promotion
     {
+        public int Id { get; }
     }
 }

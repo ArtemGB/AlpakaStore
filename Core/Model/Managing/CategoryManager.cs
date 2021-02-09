@@ -24,6 +24,11 @@ namespace Core.Model.Managing
             }
         }
 
+
+        /// <summary>
+        /// Добавление новой категории.
+        /// </summary>
+        /// <param name="name">Название категории</param>
         public void AddCategory(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
@@ -38,7 +43,7 @@ namespace Core.Model.Managing
         /// <summary>
         /// Добавляет подкатегорию категории.
         /// </summary>
-        /// <param name="name">Имя категории</param>
+        /// <param name="name">Название категории</param>
         /// <param name="parentCategory">Родительская категория</param>
         public void AddSubCategory(string name, Category parentCategory)
         {
