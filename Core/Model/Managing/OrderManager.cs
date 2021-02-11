@@ -39,7 +39,7 @@ namespace Core.Model.Managing
         /// <param name="clientId">Клиент для которого создаётся заказ</param>
         /// <param name="orderLines">Список товаров в заказе</param>
         /// <param name="deliveryType">Способ доставки.</param>
-        public void CreateOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)
+        public Order CreateOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
             using StoreDbContext dbContext = new StoreDbContext();
             try
@@ -47,15 +47,29 @@ namespace Core.Model.Managing
                 //Проверка, что существует клиент с таким Id.
                 if (!dbContext.Clients.Any(c => c.Id == clientId))
                     throw new ArgumentException($"There is no client with id = {clientId}.", nameof(clientId));
-                Order newOrder = new Order { Client = dbContext.Clients.Find(clientId), OrderLines = orderLines, CreateDate = DateTime.Now };
+                
+                //Расчёт общей стоимости заказа.
+                double totalPrice = default;
+                foreach (var orderLine in orderLines)
+                    totalPrice += orderLine.Price;
+                
+                Order newOrder = new Order
+                {
+                    Client = dbContext.Clients.Find(clientId),
+                    OrderLines = orderLines,
+                    CreateDate = DateTime.Now,
+                    TotalPrice = totalPrice
+                };
                 dbContext.Orders.Add(newOrder);
                 dbContext.SaveChanges();
                 foreach (var ordLine in orderLines)
                     ordLine.Order = newOrder;
+
                 // Добавление строк заказов.
                 dbContext.OrderLines.AddRange(orderLines);
                 dbContext.SaveChanges();
                 OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
+                return newOrder;
             }
             catch (Exception e)
             {
@@ -78,6 +92,7 @@ namespace Core.Model.Managing
                 {
                     ordToChange.OrderStatus = newStatus;
                     dbContext.SaveChanges();
+                    OrderStatusChangedHandler?.Invoke(this, new OrderEventArgs(order));
                 }
                 else throw new ArgumentException($"No order with Id = {order.Id}");
             }
@@ -124,7 +139,7 @@ namespace Core.Model.Managing
                 dbContext.Orders.Remove(ordToComplete);
 
                 dbContext.SaveChanges();
-                OrderCompletedHandler.Invoke(this,new CompletedOrderEventArgs(completedOrder));
+                OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
             }
             else
             {

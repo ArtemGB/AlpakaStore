@@ -12,15 +12,16 @@ namespace Core.Model.Ordering
         public int Id { get; set; }
         public Order Order { get; set; }
         public Product Product { get; set; }
-        public string ProductName 
-        {
-            get => Product.Name;
-            set { }
-        }
+        public string ProductName => Product.Name;
         public int Count { get; set; }
 
         //Значение берётся из прайса.
-        public double Price { get; set; }
+        public double Price { get; }
+
+        public OrderLine()
+        {
+            Price = Count * Product.Price;
+        }
 
     }
 }
