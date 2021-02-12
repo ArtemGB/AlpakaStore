@@ -25,14 +25,14 @@ namespace Core.Model.Ordering
         /// Добавляет новый фильтр в строку фильтров.
         /// </summary>
         /// <param name="filter"></param>
-        void AddFilter(string filter)
+        public void AddFilter(string filter)
         {
             if (filter.Contains("#"))
                 throw new ArgumentException("Filter can't contains symbol #.");
             _value += filter.ToLower() + "#";
         }
 
-        void RemoveFilter(string filter)
+        public void RemoveFilter(string filter)
         {
             if (filter.Contains("#"))
                 throw new ArgumentException("Filter can't contains symbol #.");
