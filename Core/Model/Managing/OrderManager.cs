@@ -1,16 +1,12 @@
 ﻿using Core.DbControl;
 using Core.Model.Ordering;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Core.Model.Users;
 
 
 namespace Core.Model.Managing
 {
-    //TODO расчёт цен и запись цены в заказ
     public class OrderManager
     {
 
@@ -47,12 +43,12 @@ namespace Core.Model.Managing
                 //Проверка, что существует клиент с таким Id.
                 if (!dbContext.Clients.Any(c => c.Id == clientId))
                     throw new ArgumentException($"There is no client with id = {clientId}.", nameof(clientId));
-                
+
                 //Расчёт общей стоимости заказа.
                 double totalPrice = default;
                 foreach (var orderLine in orderLines)
                     totalPrice += orderLine.Price;
-                
+
                 Order newOrder = new Order
                 {
                     Client = dbContext.Clients.Find(clientId),

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Core.DbControl;
+using Core.Model.Ordering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DbControl;
-using Core.Model.Ordering;
 
 namespace Core.Model.Managing
 {
@@ -37,7 +35,7 @@ namespace Core.Model.Managing
         /// <param name="price">Цена</param>
         /// <param name="filter">Фильтры</param>
         /// <param name="category">Категория</param>
-        /// <returns></returns>
+        /// <returns>Созданный продукт</returns>
         public Product AddProduct(string name, string description, int price, Filter filter, Category category)
         {
             try
@@ -64,7 +62,7 @@ namespace Core.Model.Managing
         /// <summary>
         /// Удаление продукта.
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="product">Продукт, который надо удалить.</param>
         public void RemoveProduct(Product product)
         {
             if (product == null)
@@ -85,6 +83,36 @@ namespace Core.Model.Managing
             if (product == null)
                 throw new ArgumentException($"There is no product with id = {productId}");
             _dbContext.Remove(product);
+        }
+
+        /// <summary>
+        /// Редактирование продукта.
+        /// </summary>
+        /// <param name="productId">Id продукта</param>
+        /// <param name="name">Новое имя</param>
+        /// <param name="description">Новое описание</param>
+        /// <param name="price">Новая цена</param>
+        /// <param name="filter">Новый фильтр</param>
+        /// <param name="category">Новая категория</param>
+        public void EditProduct(int productId, string name = "", string description = "", int price = -1, Filter filter = null, Category category = null)
+        {
+            Product product = _dbContext.Products.Find(productId);
+            if (product == null)
+                throw new ArgumentException($"There is no product with id = {productId}");
+            if (product.Name != name && !String.IsNullOrEmpty(name) && !String.IsNullOrWhiteSpace(name))
+                product.Name = name.Trim();
+
+            if (product.Description != description && !String.IsNullOrEmpty(description) && !String.IsNullOrWhiteSpace(description))
+                product.Description = description.Trim();
+
+            if (product.Price != price && price >= 0)
+                product.Price = price;
+
+            if (product.Filter != filter && filter != null)
+                product.Filter = filter;
+
+            if (product.Category != category && category != null)
+                product.Category = category;
         }
     }
 }
