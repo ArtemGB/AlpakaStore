@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20210131185737_CreateDb")]
-    partial class CreateDb
+    [Migration("20210215135936_TagsString")]
+    partial class TagsString
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,15 +31,15 @@ namespace Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParrentCategoryId")
+                    b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("SubCategoriesJSON")
+                    b.Property<string>("SubCategoriesJson")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParrentCategoryId");
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -77,7 +77,7 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("TagString")
+                    b.Property<string>("TagsString")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -130,14 +130,8 @@ namespace Core.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -167,6 +161,9 @@ namespace Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -174,26 +171,6 @@ namespace Core.Migrations
                     b.HasIndex("FilterId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Core.Model.PriceCalculation.Price", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("Core.Model.Users.Client", b =>
@@ -219,11 +196,11 @@ namespace Core.Migrations
 
             modelBuilder.Entity("Core.Model.Ordering.Category", b =>
                 {
-                    b.HasOne("Core.Model.Ordering.Category", "ParrentCategory")
+                    b.HasOne("Core.Model.Ordering.Category", "ParentCategory")
                         .WithMany("SubCategories")
-                        .HasForeignKey("ParrentCategoryId");
+                        .HasForeignKey("ParentCategoryId");
 
-                    b.Navigation("ParrentCategory");
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("Core.Model.Ordering.CompletedOrder", b =>
@@ -272,15 +249,6 @@ namespace Core.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Filter");
-                });
-
-            modelBuilder.Entity("Core.Model.PriceCalculation.Price", b =>
-                {
-                    b.HasOne("Core.Model.Ordering.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Core.Model.Ordering.Category", b =>

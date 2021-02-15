@@ -22,12 +22,21 @@ namespace Core.Model.Managing
             _dbContext = new StoreDbContext();
         }
 
-        public Filter AddFilter(string filterString)
+        public Filter AddFilter()
         {
             Filter newFilter = new Filter();
-            newFilter.AddFilter(filterString);
             _dbContext.Filters.Add(newFilter);
+            _dbContext.SaveChanges();
             return newFilter;
+        }
+
+        public void AddTagToFilter(int filterId, string tag)
+        {
+            Filter filter = _dbContext.Filters.Find(filterId);
+            if (filter == null)
+                throw new ArgumentException($"There is no filter with id = {filterId}");
+            filter.AddTag(tag);
+            _dbContext.SaveChanges();
         }
     }
 }

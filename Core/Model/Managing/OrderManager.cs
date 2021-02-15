@@ -35,7 +35,7 @@ namespace Core.Model.Managing
         /// <param name="clientId">Клиент для которого создаётся заказ</param>
         /// <param name="orderLines">Список товаров в заказе</param>
         /// <param name="deliveryType">Способ доставки.</param>
-        public Order CreateOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)
+        public Order AddOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
             using StoreDbContext dbContext = new StoreDbContext();
             try

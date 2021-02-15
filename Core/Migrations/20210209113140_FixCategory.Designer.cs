@@ -77,7 +77,7 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Value")
+                    b.Property<string>("TagString")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

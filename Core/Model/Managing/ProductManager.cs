@@ -3,6 +3,7 @@ using Core.Model.Ordering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Model.Managing
 {
@@ -38,25 +39,53 @@ namespace Core.Model.Managing
         /// <returns>Созданный продукт</returns>
         public Product AddProduct(string name, string description, int price, Filter filter, Category category)
         {
-            try
-            {
-                Product newProduct = new Product()
+            if (IsAddProductParamsCorrect(name, description, price, filter, category))
+                try
                 {
-                    Name = name,
-                    Description = description,
-                    Price = price,
-                    Filter = filter,
-                    Category = category,
-                };
-                _dbContext.Add(newProduct);
-                _dbContext.SaveChanges();
-                return newProduct;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Product adding error. Watch inner exceptions.");
-            }
+                    Product newProduct = new Product()
+                    {
+                        Name = name,
+                        Description = description,
+                        Price = price,
+                        Filter = filter,
+                        Category = category,
+                    };
+                    _dbContext.Add(newProduct);
+                    _dbContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Categories ON");
+                    _dbContext.SaveChanges();
+                    return newProduct;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Product adding error. Watch inner exceptions.", e);
+                }
 
+            return null;
+        }
+
+        private bool IsAddProductParamsCorrect(string name, string description, int price, Filter filter, Category category)
+        {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
+                throw new ArgumentException("Incorrect param name");
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("Incorrect param description");
+            if (price <= 0)
+                throw new ArgumentException("Incorrect param price");
+            if (filter != null)
+            {
+                if (!_dbContext.Filters.Any(f => f.Id == filter.Id))
+                    throw new ArgumentException($"There is no filter with id = {filter.Id}");
+            }
+            else throw new ArgumentNullException(nameof(filter));
+
+            if (category != null)
+            {
+                if (!_dbContext.Categories.Any(c => c.Id == category.Id))
+                    throw new ArgumentException($"There is no filter with id = {category.Id}");
+            }
+            else throw new ArgumentNullException(nameof(category));
+
+            return true;
         }
 
         /// <summary>

@@ -9,37 +9,40 @@ namespace Core.Model.Ordering
         /// <summary>
         /// Хэш теги, указываются в одну строку для товара через #.
         /// </summary>
-        private string _value;
-
-        public string Value
-        {
-            get => _value;
-        }
+        public string TagsString { get; private set; }
 
         public Filter()
         {
-            _value = "";
+            TagsString = "";
         }
 
         /// <summary>
-        /// Добавляет новый фильтр в строку фильтров.
+        /// Добавляет новый тэг в строку фильтров.
         /// </summary>
-        /// <param name="filter"></param>
-        public void AddFilter(string filter)
+        /// <param name="tag"></param>
+        public void AddTag(string tag)
         {
-            if (filter.Contains("#"))
+            if (string.IsNullOrEmpty(tag) || string.IsNullOrWhiteSpace(tag))
+                throw new ArgumentNullException(nameof(tag));
+            if (tag.Contains("#"))
                 throw new ArgumentException("Filter can't contains symbol #.");
-            _value += filter.ToLower() + "#";
+            TagsString += tag.ToLower() + "#";
         }
 
-        public void RemoveFilter(string filter)
+        /// <summary>
+        /// Удаление тега из строки фильтров.
+        /// </summary>
+        /// <param name="tag"></param>
+        public void RemoveTag(string tag)
         {
-            if (filter.Contains("#"))
+            if (string.IsNullOrEmpty(tag) || string.IsNullOrWhiteSpace(tag))
+                throw new ArgumentNullException(nameof(tag));
+            if (tag.Contains("#"))
                 throw new ArgumentException("Filter can't contains symbol #.");
-            if (_value.Contains(filter))
-                _value = _value.Replace(filter + "#", "");
+            if (TagsString.Contains(tag))
+                TagsString = TagsString.Replace(tag + "#", "");
             else
-                throw new ArgumentException($"Filters doesn't contains filter {filter}.");
+                throw new ArgumentException($"Filters doesn't contains tag {tag}.");
         }
     }
 }

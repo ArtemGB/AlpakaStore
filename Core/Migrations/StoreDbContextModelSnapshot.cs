@@ -75,7 +75,7 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Value")
+                    b.Property<string>("TagsString")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -128,14 +128,8 @@ namespace Core.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -165,6 +159,9 @@ namespace Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -172,26 +169,6 @@ namespace Core.Migrations
                     b.HasIndex("FilterId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Core.Model.PriceCalculation.Price", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("Core.Model.Users.Client", b =>
@@ -270,15 +247,6 @@ namespace Core.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Filter");
-                });
-
-            modelBuilder.Entity("Core.Model.PriceCalculation.Price", b =>
-                {
-                    b.HasOne("Core.Model.Ordering.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Core.Model.Ordering.Category", b =>
