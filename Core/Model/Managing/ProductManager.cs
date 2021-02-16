@@ -47,12 +47,15 @@ namespace Core.Model.Managing
                         Name = name,
                         Description = description,
                         Price = price,
-                        Filter = filter,
-                        Category = category,
+                        FilterId = filter.Id,
+                       // Filter = filter,
+                        CategoryId = category.Id,
+                       // Category = category,
                     };
+                   // _dbContext.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [dbo].[Categories] ON");
                     _dbContext.Add(newProduct);
-                    _dbContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Categories ON");
                     _dbContext.SaveChanges();
+                    //_dbContext.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [dbo].[Categories] OFF");
                     return newProduct;
                 }
                 catch (Exception e)
@@ -63,6 +66,16 @@ namespace Core.Model.Managing
             return null;
         }
 
+
+        /// <summary>
+        /// Проверка параметров добавления продукта.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="price"></param>
+        /// <param name="filter"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
         private bool IsAddProductParamsCorrect(string name, string description, int price, Filter filter, Category category)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
@@ -96,7 +109,7 @@ namespace Core.Model.Managing
         {
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
-            if (_dbContext.Products.Any(p => p.Id == product.Id))
+            if (_dbContext.Products.Any(p => p == product))
                 _dbContext.Products.Remove(product);
             else
                 throw new ArgumentException("Products doesn't contains this product", nameof(product));

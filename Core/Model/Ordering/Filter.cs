@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Model.Ordering
 {
     public class Filter
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
         public int Id { get; set; }
 
         /// <summary>

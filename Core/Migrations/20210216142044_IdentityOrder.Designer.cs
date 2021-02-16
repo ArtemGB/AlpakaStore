@@ -4,14 +4,16 @@ using Core.DbControl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Core.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210216142044_IdentityOrder")]
+    partial class IdentityOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,14 +130,9 @@ namespace Core.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderLines");
                 });
@@ -147,14 +144,8 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FilterId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -163,10 +154,6 @@ namespace Core.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("FilterId");
 
                     b.ToTable("Products");
                 });
@@ -222,40 +209,10 @@ namespace Core.Migrations
             modelBuilder.Entity("Core.Model.Ordering.OrderLine", b =>
                 {
                     b.HasOne("Core.Model.Ordering.Order", "Order")
-                        .WithMany("OrderLines")
+                        .WithMany()
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("Core.Model.Ordering.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
                     b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.Product", b =>
-                {
-                    b.HasOne("Core.Model.Ordering.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Model.Ordering.Filter", "Filter")
-                        .WithMany()
-                        .HasForeignKey("FilterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Filter");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.Order", b =>
-                {
-                    b.Navigation("OrderLines");
                 });
 #pragma warning restore 612, 618
         }
