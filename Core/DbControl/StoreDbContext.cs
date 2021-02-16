@@ -17,6 +17,7 @@ namespace Core.DbControl
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<CompletedOrder> CompletedOrders { get; set; }
+        public DbSet<CompletedOrderLine> CompletedOrderLines { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
         //public DbSet<Price> Prices { get; set; }
         //public DbSet<Promotion> Promotions { get; set; }

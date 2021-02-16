@@ -51,15 +51,15 @@ namespace Core.Model.Managing
 
                 Order newOrder = new Order
                 {
-                    Client = dbContext.Clients.Find(clientId),
-                    OrderLines = orderLines,
+                    ClientId = clientId,
                     CreateDate = DateTime.Now,
-                    TotalPrice = totalPrice
+                    TotalPrice = totalPrice,
+                    DeliveryType = deliveryType
                 };
                 dbContext.Orders.Add(newOrder);
                 dbContext.SaveChanges();
                 foreach (var ordLine in orderLines)
-                    ordLine.Order = newOrder;
+                    ordLine.OrderId = newOrder.Id;
 
                 // Добавление строк заказов.
                 dbContext.OrderLines.AddRange(orderLines);
@@ -80,19 +80,21 @@ namespace Core.Model.Managing
         /// <param name="newStatus">Новое значение статуса</param>
         public void ChangeOrderStatus(Order order, OrderStatus newStatus)
         {
-            if (order != null)
-            {
-                using StoreDbContext dbContext = new StoreDbContext();
-                var ordToChange = dbContext.Orders.Find(order.Id);
-                if (ordToChange != null)
-                {
-                    ordToChange.OrderStatus = newStatus;
-                    dbContext.SaveChanges();
-                    OrderStatusChangedHandler?.Invoke(this, new OrderEventArgs(order));
-                }
-                else throw new ArgumentException($"No order with Id = {order.Id}");
-            }
-            else throw new ArgumentNullException(nameof(order), "Parameter order is null.");
+            if (newStatus == OrderStatus.Completed)
+                throw new ArgumentException("Prohibited complete order in this method, use CompleteOrder method.");
+
+            if (order == null)
+                throw new ArgumentException($"No order with Id = {order.Id}");
+
+            using StoreDbContext dbContext = new StoreDbContext();
+            var ordToChange = dbContext.Orders.Find(order.Id);
+
+            if (ordToChange == null)
+                throw new ArgumentNullException(nameof(order), "Parameter order is null.");
+
+            ordToChange.OrderStatus = newStatus;
+            dbContext.SaveChanges();
+            OrderStatusChangedHandler?.Invoke(this, new OrderEventArgs(order));
         }
 
         /// <summary>
@@ -102,45 +104,48 @@ namespace Core.Model.Managing
         /// <param name="newStatus">Новое значение статуса</param>
         public void ChangeOrderStatus(int orderId, OrderStatus newStatus)
         {
+            if (newStatus == OrderStatus.Completed)
+                throw new ArgumentException("Prohibited complete order in this method, use CompleteOrder method.");
+
             using StoreDbContext dbContext = new StoreDbContext();
             var ordToChange = dbContext.Orders.Find(orderId);
-            if (ordToChange != null)
-            {
-                ordToChange.OrderStatus = newStatus;
-                dbContext.SaveChanges();
-            }
-            else throw new ArgumentException($"No order with Id = {orderId}");
+
+            if (ordToChange == null)
+                throw new ArgumentException($"No order with Id = {orderId}");
+
+            ordToChange.OrderStatus = newStatus;
+            dbContext.SaveChanges();
         }
 
         /// <summary>
         /// Завершение заказа
         /// </summary>
         /// <param name="order">Заказа для завершения.</param>
+        //TODO Переливка строк заказов.
         public void CompleteOrder(Order order)
         {
             using StoreDbContext dbContext = new StoreDbContext();
             var ordToComplete = dbContext.Orders.Find(order.Id);
-            if (ordToComplete != null)
-            {
-                ChangeOrderStatus(order, OrderStatus.Completed);
-
-                // Перенос заказа в таблицу завершённых заказов.
-                CompletedOrder completedOrder = new CompletedOrder()
-                {
-                    Client = ordToComplete.Client,
-                    CreateDate = ordToComplete.CreateDate,
-                    CompleteDate = DateTime.Now
-                };
-                dbContext.CompletedOrders.Add(completedOrder);
-                dbContext.Orders.Remove(ordToComplete);
-
-                dbContext.SaveChanges();
-                OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
-            }
-            else
-            {
+            if (ordToComplete == null)
                 throw new ArgumentNullException(nameof(order), $"There is no order with id = {order.Id}");
-            }
+            ChangeOrderStatus(order, OrderStatus.Completed);
+
+            // Перенос заказа в таблицу завершённых заказов.
+            CompletedOrder completedOrder = new CompletedOrder()
+            {
+                ClientId = ordToComplete.Client.Id,
+                CreateDate = ordToComplete.CreateDate,
+                CompleteDate = DateTime.Now
+            };
+            dbContext.CompletedOrders.Add(completedOrder);
+
+            // Перенос строк заказов завершённых заказов.
+            dbContext.CompletedOrderLines.AddRange(order.OrderLines);
+
+            dbContext.Orders.Remove(ordToComplete);
+
+            dbContext.SaveChanges();
+            OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
         }
 
 

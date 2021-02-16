@@ -18,21 +18,21 @@ namespace ConsoleTest
 
         static void Main(string[] args)
         {
-            userManager.AddClient("Pidor", "Pidorovich");
-            Filter filter = filterManager.AddFilter();
-            Filter filter1 = filterManager.AddFilter();
-            filterManager.AddTagToFilter(filter.Id, "Сочные Сосиски");
-            categoryManager.AddCategory("Сосиски");
-            filterManager.AddTagToFilter(filter1.Id, "Салями");
-            categoryManager.AddCategory("Колбасные");
-            productManager.AddProduct("Сосиска", "Обычная сосисочная сосиска", 160, filter,
-                categoryManager.Categories.ToList()[0]);
-            productManager.AddProduct("Колбаса", "Обычная колбасная колбаса", 300, filter1,
-                categoryManager.Categories.ToList()[0]);
+            //userManager.AddClient("Pidor", "Pidorovich");
+            //Filter filter = filterManager.AddFilter();
+            //Filter filter1 = filterManager.AddFilter();
+            //filterManager.AddTagToFilter(filter.Id, "Сочные Сосиски");
+            //categoryManager.AddCategory("Сосиски");
+            //filterManager.AddTagToFilter(filter1.Id, "Салями");
+            //categoryManager.AddCategory("Колбасные");
+            //productManager.AddProduct("Сосиска", "Обычная сосисочная сосиска", 160, filter,
+            //    categoryManager.Categories.ToList()[0]);
+            //productManager.AddProduct("Колбаса", "Обычная колбасная колбаса", 300, filter1,
+            //    categoryManager.Categories.ToList()[0]);
             List<OrderLine> orderLines = new List<OrderLine>();
-            //orderLines.Add(new OrderLine() { Count = 10, Product = productManager.Products.Find(product => product.Id == 3002) });
-            //orderLines.Add(new OrderLine() { Count = 3, Product = productManager.Products.Find(product => product.Id == 3002) });
-            orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 3018), 10));
+            orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 1), 10));
+            orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 2), 7));
+            //orderManager.AddOrder(1, orderLines, DeliveryType.Pickup);
             orderManager.AddOrder(1, orderLines, DeliveryType.Pickup);
             PrintOrders();
             Console.ReadLine();
@@ -43,15 +43,16 @@ namespace ConsoleTest
         {
             foreach (var order in orderManager.Orders.ToList())
             {
-                Console.WriteLine($"\t Id = {order.Id}, Client - {order.Client?.Id}" +
+                Console.WriteLine($" Id = {order.Id}, Client - {order.Client?.Id}" +
                                   $" {order.Client?.Name} {order.Client?.SecondName}," +
                                   $" CreateDate - {order.CreateDate}, Complete Date - {order.CompleteDate}," +
                                   $" Total Price - {order.TotalPrice}, Status {order.OrderStatus}");
                 foreach (OrderLine orderLine in order.OrderLines)
                 {
-                    Console.WriteLine($"\t\t Id - {orderLine.Id}, Order - {orderLine.Order.Id}," +
-                                      $" Product - orderLine.ProductName, Count - {orderLine.Count}");
+                    Console.WriteLine($"\t Id - {orderLine.Id}, Order - {orderLine.Order.Id}," +
+                                      $" Product - {orderLine.ProductName}, Count - {orderLine.Count}");
                 }
+                Console.WriteLine();
             }
         }
     }

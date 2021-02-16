@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Core.DbControl;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DbControl;
 
 
 namespace Core.Model.Ordering
@@ -13,7 +9,16 @@ namespace Core.Model.Ordering
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Order Order { get; set; }
+
+        public int OrderId { get; set; }
+        public Order Order
+        {
+            get
+            {
+                using StoreDbContext dbContext = new StoreDbContext();
+                return dbContext.Orders.Find(OrderId);
+            }
+        }
 
         public int ProductId { get; set; }
 
@@ -21,10 +26,8 @@ namespace Core.Model.Ordering
         {
             get
             {
-                using (StoreDbContext dbContext = new StoreDbContext())
-                {
-                    return dbContext.Products.Find(ProductId);
-                }
+                using StoreDbContext dbContext = new StoreDbContext();
+                return dbContext.Products.Find(ProductId);
             }
         }
         public string ProductName => Product.Name;
@@ -45,14 +48,16 @@ namespace Core.Model.Ordering
 
         public OrderLine()
         {
-            Price = Count * Product.Price;
+            //Price = Count * Product.Price;
         }
 
         public OrderLine(Product product, int count)
         {
-            Product = product ?? throw new ArgumentNullException(nameof(product));
+            if (product == null)
+                throw new ArgumentNullException(nameof(product), "Param product can't be null");
+            ProductId = product.Id;
             Count = count;
-            Price = Count * Product.Price;
+            Price = Count * product.Price;
         }
 
     }

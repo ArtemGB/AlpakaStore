@@ -151,10 +151,10 @@ namespace Core.Model.Managing
                 product.Price = price;
 
             if (product.Filter != filter && filter != null)
-                product.Filter = filter;
+                product.FilterId = filter.Id;
 
             if (product.Category != category && category != null)
-                product.Category = category;
+                product.CategoryId = category.Id;
         }
     }
 }
