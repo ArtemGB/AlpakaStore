@@ -20,7 +20,7 @@ namespace Core.Model.Ordering
             }
         }
 
-        public int ProductId { get; set; }
+        public int ProductId { get; protected set; }
 
         public Product Product
         {
@@ -32,7 +32,7 @@ namespace Core.Model.Ordering
         }
         public string ProductName => Product.Name;
 
-        private int _count;
+        protected int _count;
         public int Count
         {
             get => _count;
@@ -44,7 +44,7 @@ namespace Core.Model.Ordering
         }
 
         //Значение берётся из прайса.
-        public double Price { get; }
+        public readonly double Price;
 
         public OrderLine()
         {

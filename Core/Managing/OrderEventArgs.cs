@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Model.Ordering;
 
-namespace Core.Model.Managing
+namespace Core.Managing
 {
     public class OrderEventArgs : EventArgs
     {

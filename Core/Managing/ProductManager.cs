@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Model.Managing
+namespace Core.Managing
 {
     public class ProductManager
     {

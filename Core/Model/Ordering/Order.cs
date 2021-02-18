@@ -18,10 +18,8 @@ namespace Core.Model.Ordering
         {
             get
             {
-                using (StoreDbContext dbContext = new StoreDbContext())
-                {
-                    return dbContext.Clients.Find(ClientId);
-                }
+                using StoreDbContext dbContext = new StoreDbContext();
+                return dbContext.Clients.Find(ClientId);
             }
         }
 
@@ -30,10 +28,8 @@ namespace Core.Model.Ordering
         {
             get
             {
-                using (StoreDbContext dbContext = new StoreDbContext())
-                {
-                    return dbContext.OrderLines.Where(ord => ord.OrderId == Id).ToList();
-                }
+                using StoreDbContext dbContext = new StoreDbContext();
+                return dbContext.OrderLines.Where(ord => ord.OrderId == Id).ToList();
             }
         }
 
@@ -41,7 +37,6 @@ namespace Core.Model.Ordering
         public OrderStatus OrderStatus { get; set; }
         public DeliveryType DeliveryType { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime CompleteDate { get; set; }
         public double TotalPrice { get; set; }
 
     }

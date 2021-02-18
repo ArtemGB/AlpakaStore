@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DbControl;
+﻿using Core.DbControl;
 using Core.Model.Users;
-using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace Core.Model.Managing
+namespace Core.Managing
 {
 
     public class UserManager

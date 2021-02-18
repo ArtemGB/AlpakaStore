@@ -11,6 +11,11 @@ namespace Core.Model.Ordering
     [Table("Completed Orders")]
     public class CompletedOrder : Order
     {
+        public DateTime CompleteDate { get; set; }
+
+        public CompletedOrder()
+        {
+        }
 
     }
 }

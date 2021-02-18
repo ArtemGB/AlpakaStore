@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Core.DbControl;
-using Core.Model.PriceCalculation;
+﻿using Core.DbControl;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Model.Ordering
 {
@@ -10,8 +9,8 @@ namespace Core.Model.Ordering
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        
-        public  int FilterId { get; set; }
+
+        public int FilterId { get; set; }
 
         public Filter Filter
         {

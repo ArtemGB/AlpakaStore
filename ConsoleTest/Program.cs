@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Core.Model.Managing;
+using Core.Managing;
 using Core.Model.Ordering;
 using Core.Model.Users;
 
@@ -45,7 +45,7 @@ namespace ConsoleTest
             {
                 Console.WriteLine($" Id = {order.Id}, Client - {order.Client?.Id}" +
                                   $" {order.Client?.Name} {order.Client?.SecondName}," +
-                                  $" CreateDate - {order.CreateDate}, Complete Date - {order.CompleteDate}," +
+                                  $" CreateDate - {order.CreateDate}," +
                                   $" Total Price - {order.TotalPrice}, Status {order.OrderStatus}");
                 foreach (OrderLine orderLine in order.OrderLines)
                 {

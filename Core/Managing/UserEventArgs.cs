@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Model.Users;
 
-namespace Core.Model.Managing
+namespace Core.Managing
 {
     public class UserEventArgs : EventArgs
     {

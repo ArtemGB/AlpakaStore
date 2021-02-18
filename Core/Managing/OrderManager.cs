@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Core.Model.Managing
+namespace Core.Managing
 {
     public class OrderManager
     {
@@ -14,20 +14,14 @@ namespace Core.Model.Managing
         public event EventHandler OrderStatusChangedHandler;
         public event EventHandler OrderCompletedHandler;
 
+        private StoreDbContext _dbContext;
+
         public OrderManager()
         {
+            _dbContext = new StoreDbContext();
         }
 
-        public List<Order> Orders
-        {
-            get
-            {
-                using (StoreDbContext dbContext = new StoreDbContext())
-                {
-                    return dbContext.Orders.ToList();
-                }
-            }
-        }
+        public List<Order> Orders => _dbContext.Orders.ToList();
 
         /// <summary>
         /// Создание заказа.
@@ -37,11 +31,10 @@ namespace Core.Model.Managing
         /// <param name="deliveryType">Способ доставки.</param>
         public Order AddOrder(int clientId, List<OrderLine> orderLines, DeliveryType deliveryType)
         {
-            using StoreDbContext dbContext = new StoreDbContext();
             try
             {
                 //Проверка, что существует клиент с таким Id.
-                if (!dbContext.Clients.Any(c => c.Id == clientId))
+                if (!_dbContext.Clients.Any(c => c.Id == clientId))
                     throw new ArgumentException($"There is no client with id = {clientId}.", nameof(clientId));
 
                 //Расчёт общей стоимости заказа.
@@ -56,14 +49,14 @@ namespace Core.Model.Managing
                     TotalPrice = totalPrice,
                     DeliveryType = deliveryType
                 };
-                dbContext.Orders.Add(newOrder);
-                dbContext.SaveChanges();
+                _dbContext.Orders.Add(newOrder);
+                _dbContext.SaveChanges();
                 foreach (var ordLine in orderLines)
                     ordLine.OrderId = newOrder.Id;
 
                 // Добавление строк заказов.
-                dbContext.OrderLines.AddRange(orderLines);
-                dbContext.SaveChanges();
+                _dbContext.OrderLines.AddRange(orderLines);
+                _dbContext.SaveChanges();
                 OrderCreatedHandler?.Invoke(this, new OrderEventArgs(newOrder));
                 return newOrder;
             }
@@ -86,14 +79,13 @@ namespace Core.Model.Managing
             if (order == null)
                 throw new ArgumentException($"No order with Id = {order.Id}");
 
-            using StoreDbContext dbContext = new StoreDbContext();
-            var ordToChange = dbContext.Orders.Find(order.Id);
+            var ordToChange = _dbContext.Orders.Find(order.Id);
 
             if (ordToChange == null)
                 throw new ArgumentNullException(nameof(order), "Parameter order is null.");
 
             ordToChange.OrderStatus = newStatus;
-            dbContext.SaveChanges();
+            _dbContext.SaveChanges();
             OrderStatusChangedHandler?.Invoke(this, new OrderEventArgs(order));
         }
 
@@ -107,14 +99,13 @@ namespace Core.Model.Managing
             if (newStatus == OrderStatus.Completed)
                 throw new ArgumentException("Prohibited complete order in this method, use CompleteOrder method.");
 
-            using StoreDbContext dbContext = new StoreDbContext();
-            var ordToChange = dbContext.Orders.Find(orderId);
+            var ordToChange = _dbContext.Orders.Find(orderId);
 
             if (ordToChange == null)
                 throw new ArgumentException($"No order with Id = {orderId}");
 
             ordToChange.OrderStatus = newStatus;
-            dbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -124,8 +115,7 @@ namespace Core.Model.Managing
         //TODO Переливка строк заказов.
         public void CompleteOrder(Order order)
         {
-            using StoreDbContext dbContext = new StoreDbContext();
-            var ordToComplete = dbContext.Orders.Find(order.Id);
+            var ordToComplete = _dbContext.Orders.Find(order.Id);
             if (ordToComplete == null)
                 throw new ArgumentNullException(nameof(order), $"There is no order with id = {order.Id}");
             ChangeOrderStatus(order, OrderStatus.Completed);
@@ -137,14 +127,19 @@ namespace Core.Model.Managing
                 CreateDate = ordToComplete.CreateDate,
                 CompleteDate = DateTime.Now
             };
-            dbContext.CompletedOrders.Add(completedOrder);
+            _dbContext.CompletedOrders.Add(completedOrder);
 
             // Перенос строк заказов завершённых заказов.
-            dbContext.CompletedOrderLines.AddRange(order.OrderLines);
+            List<CompletedOrderLine> completedOrderLines = new List<CompletedOrderLine>();
+            foreach (var orderLine in ordToComplete.OrderLines)
+            {
+                completedOrderLines.Add(new CompletedOrderLine(orderLine.Product, orderLine.Count));
+            }
+            _dbContext.CompletedOrderLines.AddRange(completedOrderLines);
 
-            dbContext.Orders.Remove(ordToComplete);
+            _dbContext.Orders.Remove(ordToComplete);
 
-            dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
             OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
         }
 
@@ -164,7 +159,7 @@ namespace Core.Model.Managing
                 // Перенос заказа в таблицу завершённых заказов.
                 CompletedOrder completedOrder = new CompletedOrder()
                 {
-                    Client = ordToComplete.Client,
+                    ClientId = ordToComplete.Client.Id,
                     CreateDate = ordToComplete.CreateDate,
                     CompleteDate = DateTime.Now
                 };

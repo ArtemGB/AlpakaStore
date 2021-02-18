@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Core.DbControl;
+using Core.Model.Ordering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DbControl;
-using Core.Model.Ordering;
 
-namespace Core.Model.Managing
+namespace Core.Managing
 {
     public class FilterManager
     {
