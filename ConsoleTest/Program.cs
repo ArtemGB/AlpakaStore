@@ -29,12 +29,12 @@ namespace ConsoleTest
             //    categoryManager.Categories.ToList()[0]);
             //productManager.AddProduct("Колбаса", "Обычная колбасная колбаса", 300, filter1,
             //    categoryManager.Categories.ToList()[0]);
-            List<OrderLine> orderLines = new List<OrderLine>();
-            orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 1), 10));
-            orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 2), 7));
+            //List<OrderLine> orderLines = new List<OrderLine>();
+            //orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 3018), 10));
+            //orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 3018), 7));
             //orderManager.AddOrder(1, orderLines, DeliveryType.Pickup);
-            orderManager.AddOrder(1, orderLines, DeliveryType.Pickup);
             PrintOrders();
+            //orderManager.CompleteOrder(5005);
             Console.ReadLine();
 
         }

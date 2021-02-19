@@ -4,14 +4,16 @@ using Core.DbControl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Core.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210219115456_RemoveCompleted")]
+    partial class RemoveCompleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,23 +157,6 @@ namespace Core.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("Core.Model.Ordering.CompletedOrder", b =>
-                {
-                    b.HasBaseType("Core.Model.Ordering.Order");
-
-                    b.Property<DateTime>("CompleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.ToTable("Completed Orders");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.CompletedOrderLine", b =>
-                {
-                    b.HasBaseType("Core.Model.Ordering.OrderLine");
-
-                    b.ToTable("Completed Order Lines");
-                });
-
             modelBuilder.Entity("Core.Model.Ordering.Category", b =>
                 {
                     b.HasOne("Core.Model.Ordering.Category", "ParentCategory")
@@ -190,24 +175,6 @@ namespace Core.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.CompletedOrder", b =>
-                {
-                    b.HasOne("Core.Model.Ordering.Order", null)
-                        .WithOne()
-                        .HasForeignKey("Core.Model.Ordering.CompletedOrder", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.CompletedOrderLine", b =>
-                {
-                    b.HasOne("Core.Model.Ordering.OrderLine", null)
-                        .WithOne()
-                        .HasForeignKey("Core.Model.Ordering.CompletedOrderLine", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -23,6 +23,8 @@ namespace Core.Managing
 
         public List<Order> Orders => _dbContext.Orders.ToList();
 
+        public List<CompletedOrder> CompletedOrders => _dbContext.CompletedOrders.ToList();
+
         /// <summary>
         /// Создание заказа.
         /// </summary>
@@ -139,7 +141,7 @@ namespace Core.Managing
 
             _dbContext.Orders.Remove(ordToComplete);
 
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
             OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
         }
 
@@ -150,24 +152,32 @@ namespace Core.Managing
         /// <param name="orderId">Id заказа для завершения.</param>
         public void CompleteOrder(int orderId)
         {
-            using StoreDbContext dbContext = new StoreDbContext();
-            var ordToComplete = dbContext.Orders.Find(orderId);
+            var ordToComplete = _dbContext.Orders.Find(orderId);
             if (ordToComplete != null)
             {
-                ChangeOrderStatus(orderId, OrderStatus.Completed);
+                //ChangeOrderStatus(orderId, OrderStatus.Completed);
 
                 // Перенос заказа в таблицу завершённых заказов.
                 CompletedOrder completedOrder = new CompletedOrder()
                 {
                     ClientId = ordToComplete.Client.Id,
                     CreateDate = ordToComplete.CreateDate,
+                    TotalPrice = ordToComplete.TotalPrice,
                     CompleteDate = DateTime.Now
                 };
-                dbContext.CompletedOrders.Add(completedOrder);
-                dbContext.Orders.Remove(ordToComplete);
+                _dbContext.CompletedOrders.Add(completedOrder);
+                _dbContext.Orders.Remove(ordToComplete);
 
-                dbContext.SaveChanges();
-                OrderCompletedHandler.Invoke(this, new CompletedOrderEventArgs(completedOrder));
+                // Перенос строк заказов завершённых заказов.
+                List<CompletedOrderLine> completedOrderLines = new List<CompletedOrderLine>();
+                foreach (var orderLine in ordToComplete.OrderLines)
+                {
+                    completedOrderLines.Add(new CompletedOrderLine(orderLine.Product, orderLine.Count));
+                }
+                _dbContext.CompletedOrderLines.AddRange(completedOrderLines);
+
+                _dbContext.SaveChanges();
+                OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
             }
             else
             {
