@@ -34,7 +34,8 @@ namespace ConsoleTest
             //orderLines.Add(new OrderLine(productManager.Products.Find(product => product.Id == 3018), 7));
             //orderManager.AddOrder(1, orderLines, DeliveryType.Pickup);
             PrintOrders();
-            //orderManager.CompleteOrder(5005);
+            orderManager.CompleteOrder(1);
+            PrintCompletedOrders();
             Console.ReadLine();
 
         }
@@ -46,7 +47,29 @@ namespace ConsoleTest
                 Console.WriteLine($" Id = {order.Id}, Client - {order.Client?.Id}" +
                                   $" {order.Client?.Name} {order.Client?.SecondName}," +
                                   $" CreateDate - {order.CreateDate}," +
-                                  $" Total Price - {order.TotalPrice}, Status {order.OrderStatus}");
+                                  $" Total Price - {order.TotalPrice}, " +
+                                  $"Status {order.OrderStatus}" +
+                                  $"Delivery type - {order.DeliveryType}");
+                foreach (OrderLine orderLine in order.OrderLines)
+                {
+                    Console.WriteLine($"\t Id - {orderLine.Id}, Order - {orderLine.Order.Id}," +
+                                      $" Product - {orderLine.ProductName}, Count - {orderLine.Count}");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static void PrintCompletedOrders()
+        {
+            foreach (var order in orderManager.CompletedOrders.ToList())
+            {
+                Console.WriteLine($" Id = {order.Id}, Client - {order.Client?.Id}" +
+                                  $" {order.Client?.Name} {order.Client?.SecondName}," +
+                                  $" CreateDate - {order.CreateDate}," +
+                                  $" CompleteDate - {order.CompleteDate}" +
+                                  $" Total Price - {order.TotalPrice}, " +
+                                  $"Status {order.OrderStatus}" +
+                                  $"Delivery type - {order.DeliveryType}");
                 foreach (OrderLine orderLine in order.OrderLines)
                 {
                     Console.WriteLine($"\t Id - {orderLine.Id}, Order - {orderLine.Order.Id}," +
