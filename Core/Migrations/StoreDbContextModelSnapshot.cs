@@ -67,7 +67,7 @@ namespace Core.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DeliveryType")

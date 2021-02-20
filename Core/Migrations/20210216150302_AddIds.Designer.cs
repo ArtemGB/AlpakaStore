@@ -57,7 +57,7 @@ namespace Core.Migrations
                     b.Property<DateTime>("CompleteDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("TotalPrice")
@@ -98,7 +98,7 @@ namespace Core.Migrations
                     b.Property<DateTime>("CompleteDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DeliveryType")

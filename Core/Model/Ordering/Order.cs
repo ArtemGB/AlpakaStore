@@ -8,7 +8,7 @@ using Core.DbControl;
 namespace Core.Model.Ordering
 {
     [Table("Orders")]
-    public class Order
+    public class Order : IOrder
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -24,7 +24,7 @@ namespace Core.Model.Ordering
         }
 
         [NotMapped]
-        public List<OrderLine> OrderLines
+        public List<IOrderLine> OrderLines
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Core.Model.Ordering
         //TODO в метод гет парсинг продуктов в JSON
         public OrderStatus OrderStatus { get; set; }
         public DeliveryType DeliveryType { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDateTime { get; set; }
         public double TotalPrice { get; set; }
 
     }

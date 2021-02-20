@@ -45,7 +45,7 @@ namespace ConsoleTest
             {
                 Console.WriteLine($" Id = {order.Id}, Client - {order.Client?.Id}" +
                                   $" {order.Client?.Name} {order.Client?.SecondName}," +
-                                  $" CreateDate - {order.CreateDate}," +
+                                  $" CreateDateTime - {order.CreateDateTime}," +
                                   $" Total Price - {order.TotalPrice}, Status {order.OrderStatus}");
                 foreach (OrderLine orderLine in order.OrderLines)
                 {

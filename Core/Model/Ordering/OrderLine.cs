@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Model.Ordering
 {
-    public class OrderLine
+    public class OrderLine : IOrderLine
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace Core.Model.Ordering
             }
         }
 
-        public int ProductId { get; protected set; }
+        public int ProductId { get; init; }
 
         public Product Product
         {
@@ -32,7 +32,7 @@ namespace Core.Model.Ordering
         }
         public string ProductName => Product.Name;
 
-        protected int _count;
+        private int _count;
         public int Count
         {
             get => _count;
@@ -43,8 +43,9 @@ namespace Core.Model.Ordering
             }
         }
 
+        public double Price { get; init; }
+
         //Значение берётся из прайса.
-        public readonly double Price;
 
         public OrderLine()
         {

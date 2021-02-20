@@ -14,7 +14,7 @@ namespace Core.Managing
         public event EventHandler OrderStatusChangedHandler;
         public event EventHandler OrderCompletedHandler;
 
-        private StoreDbContext _dbContext;
+        private readonly StoreDbContext _dbContext;
 
         public OrderManager()
         {
@@ -47,7 +47,7 @@ namespace Core.Managing
                 Order newOrder = new Order
                 {
                     ClientId = clientId,
-                    CreateDate = DateTime.Now,
+                    CreateDateTime = DateTime.Now,
                     TotalPrice = totalPrice,
                     DeliveryType = deliveryType
                 };
@@ -126,7 +126,7 @@ namespace Core.Managing
             CompletedOrder completedOrder = new CompletedOrder()
             {
                 ClientId = ordToComplete.Client.Id,
-                CreateDate = ordToComplete.CreateDate,
+                CreateDateTime = ordToComplete.CreateDateTime,
                 CompleteDate = DateTime.Now
             };
             _dbContext.CompletedOrders.Add(completedOrder);
@@ -161,7 +161,7 @@ namespace Core.Managing
                 CompletedOrder completedOrder = new CompletedOrder()
                 {
                     ClientId = ordToComplete.Client.Id,
-                    CreateDate = ordToComplete.CreateDate,
+                    CreateDateTime = ordToComplete.CreateDateTime,
                     TotalPrice = ordToComplete.TotalPrice,
                     CompleteDate = DateTime.Now
                 };
