@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Core.Managing
 {
+    //TODO отдельные таблицы для завершённых заказов.
     public class OrderManager
     {
 
@@ -155,15 +156,14 @@ namespace Core.Managing
             var ordToComplete = _dbContext.Orders.Find(orderId);
             if (ordToComplete != null)
             {
-                //ChangeOrderStatus(orderId, OrderStatus.Completed);
-
                 // Перенос заказа в таблицу завершённых заказов.
                 CompletedOrder completedOrder = new CompletedOrder()
                 {
                     ClientId = ordToComplete.Client.Id,
                     CreateDateTime = ordToComplete.CreateDateTime,
                     TotalPrice = ordToComplete.TotalPrice,
-                    CompleteDate = DateTime.Now
+                    CompleteDate = DateTime.Now,
+                    OrderStatus = OrderStatus.Completed
                 };
                 _dbContext.CompletedOrders.Add(completedOrder);
                 _dbContext.Orders.Remove(ordToComplete);
