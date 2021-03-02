@@ -8,7 +8,7 @@ using Core.DbControl;
 namespace Core.Model.Ordering
 {
     [Table("Orders")]
-    public class Order : IOrder
+    public class Order : IOrder<OrderLine>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -24,7 +24,7 @@ namespace Core.Model.Ordering
         }
 
         [NotMapped]
-        public List<IOrderLine> OrderLines
+        public List<OrderLine> OrderLines
         {
             get
             {

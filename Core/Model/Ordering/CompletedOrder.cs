@@ -28,7 +28,7 @@ namespace Core.Model.Ordering
         }
 
         [NotMapped]
-        public List<IOrderLine> OrderLines
+        public List<CompletedOrderLine> OrderLines
         {
             get
             {

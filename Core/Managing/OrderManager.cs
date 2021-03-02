@@ -128,7 +128,7 @@ namespace Core.Managing
             {
                 ClientId = ordToComplete.Client.Id,
                 CreateDateTime = ordToComplete.CreateDateTime,
-                CompleteDate = DateTime.Now
+                CompleteDateTime = DateTime.Now
             };
             _dbContext.CompletedOrders.Add(completedOrder);
 
@@ -162,7 +162,7 @@ namespace Core.Managing
                     ClientId = ordToComplete.Client.Id,
                     CreateDateTime = ordToComplete.CreateDateTime,
                     TotalPrice = ordToComplete.TotalPrice,
-                    CompleteDate = DateTime.Now,
+                    CompleteDateTime = DateTime.Now,
                     OrderStatus = OrderStatus.Completed
                 };
                 _dbContext.CompletedOrders.Add(completedOrder);

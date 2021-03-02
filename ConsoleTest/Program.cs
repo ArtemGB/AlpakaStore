@@ -35,7 +35,7 @@ namespace ConsoleTest
             //orderManager.AddOrder(1, orderLines, DeliveryType.Pickup);
             PrintOrders();
             orderManager.CompleteOrder(1);
-            PrintCompletedOrders();
+            //PrintCompletedOrders();
             Console.ReadLine();
 
         }
@@ -46,7 +46,7 @@ namespace ConsoleTest
             {
                 Console.WriteLine($" Id = {order.Id}, Client - {order.Client?.Id}" +
                                   $" {order.Client?.Name} {order.Client?.SecondName}," +
-                                  $" CreateDate - {order.CreateDate}," +
+                                  $" CreateDate - {order.CreateDateTime}," +
                                   $" Total Price - {order.TotalPrice}, Status {order.OrderStatus}");
                 foreach (OrderLine orderLine in order.OrderLines)
                 {
