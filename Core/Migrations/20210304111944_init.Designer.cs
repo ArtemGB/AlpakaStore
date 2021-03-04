@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20210216155616_OrdLineIds")]
-    partial class OrdLineIds
+    [Migration("20210304111944_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,23 +51,51 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CompleteDate")
+                    b.Property<DateTime>("CompleteDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("DeliveryType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
 
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
-
                     b.ToTable("Completed Orders");
+                });
+
+            modelBuilder.Entity("Core.Model.Ordering.CompletedOrderLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Completed Order Lines");
                 });
 
             modelBuilder.Entity("Core.Model.Ordering.Filter", b =>
@@ -92,11 +120,8 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("CompleteDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime2");
@@ -111,8 +136,6 @@ namespace Core.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.ToTable("Orders");
                 });
@@ -130,12 +153,13 @@ namespace Core.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderLines");
                 });
@@ -199,33 +223,6 @@ namespace Core.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("Core.Model.Ordering.CompletedOrder", b =>
-                {
-                    b.HasOne("Core.Model.Users.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.Navigation("Client");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.Order", b =>
-                {
-                    b.HasOne("Core.Model.Users.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.Navigation("Client");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.OrderLine", b =>
-                {
-                    b.HasOne("Core.Model.Ordering.Order", null)
-                        .WithMany("OrderLines")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Model.Ordering.Product", b =>
                 {
                     b.HasOne("Core.Model.Ordering.Category", "Category")
@@ -235,11 +232,6 @@ namespace Core.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Core.Model.Ordering.Order", b =>
-                {
-                    b.Navigation("OrderLines");
                 });
 #pragma warning restore 612, 618
         }

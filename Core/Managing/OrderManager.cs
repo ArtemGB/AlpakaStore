@@ -121,27 +121,27 @@ namespace Core.Managing
             var ordToComplete = _dbContext.Orders.Find(order.Id);
             if (ordToComplete == null)
                 throw new ArgumentNullException(nameof(order), $"There is no order with id = {order.Id}");
-            ChangeOrderStatus(order, OrderStatus.Completed);
-
-            // Перенос заказа в таблицу завершённых заказов.
             CompletedOrder completedOrder = new CompletedOrder()
             {
                 ClientId = ordToComplete.Client.Id,
                 CreateDateTime = ordToComplete.CreateDateTime,
-                CompleteDateTime = DateTime.Now
+                TotalPrice = ordToComplete.TotalPrice,
+                CompleteDateTime = DateTime.Now,
+                OrderStatus = OrderStatus.Completed
             };
             _dbContext.CompletedOrders.Add(completedOrder);
-
+            _dbContext.SaveChanges();
             // Перенос строк заказов завершённых заказов.
             List<CompletedOrderLine> completedOrderLines = new List<CompletedOrderLine>();
             foreach (var orderLine in ordToComplete.OrderLines)
             {
-                completedOrderLines.Add(new CompletedOrderLine(orderLine.Product, orderLine.Count));
+                completedOrderLines.Add(new CompletedOrderLine(orderLine.Product, orderLine.Count) {OrderId = completedOrder.Id});
             }
             _dbContext.CompletedOrderLines.AddRange(completedOrderLines);
 
+            _dbContext.AttachRange(ordToComplete.OrderLines);
+            _dbContext.OrderLines.RemoveRange(ordToComplete.OrderLines);
             _dbContext.Orders.Remove(ordToComplete);
-
             _dbContext.SaveChanges();
             OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
         }
@@ -166,16 +166,17 @@ namespace Core.Managing
                     OrderStatus = OrderStatus.Completed
                 };
                 _dbContext.CompletedOrders.Add(completedOrder);
-                _dbContext.Orders.Remove(ordToComplete);
-
+                _dbContext.SaveChanges();
                 // Перенос строк заказов завершённых заказов.
                 List<CompletedOrderLine> completedOrderLines = new List<CompletedOrderLine>();
                 foreach (var orderLine in ordToComplete.OrderLines)
                 {
-                    completedOrderLines.Add(new CompletedOrderLine(orderLine.Product, orderLine.Count));
+                    completedOrderLines.Add(new CompletedOrderLine(orderLine.Product, orderLine.Count) { OrderId = completedOrder.Id });
                 }
                 _dbContext.CompletedOrderLines.AddRange(completedOrderLines);
 
+                _dbContext.OrderLines.RemoveRange(ordToComplete.OrderLines);
+                _dbContext.Orders.Remove(ordToComplete);
                 _dbContext.SaveChanges();
                 OrderCompletedHandler?.Invoke(this, new CompletedOrderEventArgs(completedOrder));
             }
