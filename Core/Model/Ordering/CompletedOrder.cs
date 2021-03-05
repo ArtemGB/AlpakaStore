@@ -43,6 +43,29 @@ namespace Core.Model.Ordering
         public DateTime CreateDateTime { get; set; }
         public double TotalPrice { get; set; }
 
+        public CompletedOrderLine AddOrderLine(CompletedOrderLine orderLine)
+        {
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                orderLine.OrderId = Id;
+                dbContext.Add(orderLine);
+                return orderLine;
+            }
+        }
 
+        public CompletedOrderLine AddOrderLine(Product product, int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveOrderLine(CompletedOrderLine orderLine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveOrderLine(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

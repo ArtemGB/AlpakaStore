@@ -14,9 +14,9 @@ namespace Core.Model.Ordering
         public DeliveryType DeliveryType { get; set; }
         public DateTime CreateDateTime { get; set; }
         public double TotalPrice { get; set; }
-        public T AddOrderLine(OrderLine orderLine);
+        public T AddOrderLine(T orderLine);
         public T AddOrderLine(Product product, int count);
-        public void RemoveOrderLine(OrderLine orderLine);
+        public void RemoveOrderLine(T orderLine);
         public void RemoveOrderLine(int id);
 
     }

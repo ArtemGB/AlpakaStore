@@ -59,11 +59,13 @@ namespace Core.Model.Ordering
             }
         }
 
+        //todo На данный момент позволяет удалять строки из других заказов, необходимо поправить.
         public void RemoveOrderLine(OrderLine orderLine)
         {
             using (StoreDbContext dbContext = new StoreDbContext())
             {
-                if (orderLine == null) throw new ArgumentNullException(nameof(orderLine));
+                if (orderLine == null) 
+                    throw new ArgumentNullException(nameof(orderLine));
                 dbContext.Attach(orderLine);
                 dbContext.OrderLines.Remove(orderLine);
             }
