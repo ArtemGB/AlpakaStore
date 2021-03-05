@@ -61,5 +61,16 @@ namespace Core.Model.Ordering
             Price = Count * product.Price;
         }
 
+        public OrderLine(Order order, Product product, int count)
+            : this(product, count)
+        {
+            OrderId = order.Id;
+        }
+
+        public OrderLine(int orderId, Product product, int count)
+            : this(product, count)
+        {
+            OrderId = orderId;
+        }
     }
 }

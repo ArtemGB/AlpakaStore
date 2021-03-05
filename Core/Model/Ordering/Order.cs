@@ -39,5 +39,45 @@ namespace Core.Model.Ordering
         public DateTime CreateDateTime { get; set; }
         public double TotalPrice { get; set; }
 
+        public OrderLine AddOrderLine(OrderLine orderLine)
+        {
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                orderLine.OrderId = Id;
+                dbContext.Add(orderLine);
+                return orderLine;
+            }
+        }
+
+        public OrderLine AddOrderLine(Product product, int count)
+        {
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                OrderLine orderLine = new OrderLine(Id, product, count);
+                dbContext.Add(orderLine);
+                return orderLine;
+            }
+        }
+
+        public void RemoveOrderLine(OrderLine orderLine)
+        {
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                if (orderLine == null) throw new ArgumentNullException(nameof(orderLine));
+                dbContext.Attach(orderLine);
+                dbContext.OrderLines.Remove(orderLine);
+            }
+        }
+
+        public void RemoveOrderLine(int id)
+        {
+            using (StoreDbContext dbContext = new StoreDbContext())
+            {
+                OrderLine lineToDelete = dbContext.OrderLines.Find(id);
+                if (lineToDelete != null)
+                    dbContext.OrderLines.Remove(lineToDelete);
+                else throw new ArgumentException($"There is no Order line with id = {id}.");
+            }
+        }
     }
 }

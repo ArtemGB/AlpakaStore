@@ -3,6 +3,7 @@ using Core.Model.Ordering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Core.Managing
@@ -139,7 +140,7 @@ namespace Core.Managing
             }
             _dbContext.CompletedOrderLines.AddRange(completedOrderLines);
 
-            _dbContext.AttachRange(ordToComplete.OrderLines);
+            //_dbContext.AttachRange(ordToComplete.OrderLines);
             _dbContext.OrderLines.RemoveRange(ordToComplete.OrderLines);
             _dbContext.Orders.Remove(ordToComplete);
             _dbContext.SaveChanges();
